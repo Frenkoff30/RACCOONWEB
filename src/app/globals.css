@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0c0c0e;
+  --foreground: #ffffff;
+  --raccoon-pink: #ff3c7e;
+  --raccoon-pink-light: #ff7fae;
+  --raccoon-black: #0c0c0e;
+  --raccoon-gray: #1c1c20;
+  --raccoon-white: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-pink: var(--raccoon-pink);
+  --color-pink-light: var(--raccoon-pink-light);
+  --color-ink: var(--raccoon-black);
+  --color-graphite: var(--raccoon-gray);
+  --font-display: var(--font-bangers);
+  --font-sans: var(--font-rubik);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-rubik), Arial, Helvetica, sans-serif;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 2px var(--raccoon-pink);
+}
+
+@keyframes raccoon-bounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-raccoon-bounce {
+  animation: raccoon-bounce 3s ease-in-out infinite;
+}
