@@ -1,41 +1,420 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0c0c0e;
-  --foreground: #ffffff;
-  --raccoon-pink: #ff3c7e;
-  --raccoon-pink-light: #ff7fae;
-  --raccoon-black: #0c0c0e;
-  --raccoon-gray: #1c1c20;
-  --raccoon-white: #ffffff;
+/* ------------------------------------------------------------------ */
+/*  BRAND TOKENY                                                       */
+/*  Černá / bílá / růžová – vzorováno podle loga myvala.               */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #08080a;
+  --color-ink-2: #0c0c10;
+  --color-surface: #141419;
+  --color-surface-2: #1c1c23;
+  --color-line: #272730;
+  --color-chalk: #f4f4f6;
+  --color-muted: #9b9baa;
+  --color-pink: #ff2e7e;
+  --color-pink-soft: #ff7cae;
+  --color-pink-deep: #b8004f;
+  --color-fur: #8a8a92;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-pink: var(--raccoon-pink);
-  --color-pink-light: var(--raccoon-pink-light);
-  --color-ink: var(--raccoon-black);
-  --color-graphite: var(--raccoon-gray);
-  --font-display: var(--font-bangers);
-  --font-sans: var(--font-rubik);
+  --font-display: var(--font-anton);
+  --font-cond: var(--font-barlow-condensed);
+  --font-sans: var(--font-barlow);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-rubik), Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/*  BASE                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-chalk);
+    font-family: var(--font-barlow), system-ui, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-pink);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-pink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2c2c36;
+    border: 2px solid var(--color-ink);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink);
+  }
 }
 
-.text-stroke {
-  -webkit-text-stroke: 2px var(--raccoon-pink);
+/* ------------------------------------------------------------------ */
+/*  LAYOUT                                                             */
+/* ------------------------------------------------------------------ */
+.wrap {
+  width: 100%;
+  max-width: 1260px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 640px) {
+  .wrap {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .wrap {
+    padding-inline: 44px;
+  }
 }
 
-@keyframes raccoon-bounce {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-10px) rotate(2deg); }
+/* ------------------------------------------------------------------ */
+/*  TYPOGRAFIE                                                         */
+/* ------------------------------------------------------------------ */
+.display {
+  font-family: var(--font-anton), var(--font-barlow-condensed), sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.005em;
 }
 
-.animate-raccoon-bounce {
-  animation: raccoon-bounce 3s ease-in-out infinite;
+.cond {
+  font-family: var(--font-barlow-condensed), sans-serif;
+}
+
+.eyebrow {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* Dutá (obtažená) verze nadpisu */
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.32);
+}
+.stroke-text-pink {
+  -webkit-text-stroke-color: var(--color-pink);
+}
+@supports not (-webkit-text-stroke: 1px #000) {
+  .stroke-text {
+    color: rgb(255 255 255 / 0.32);
+  }
+  .stroke-text-pink {
+    color: var(--color-pink);
+  }
+}
+
+/* Číslo na dresu */
+.jersey {
+  font-family: var(--font-anton), sans-serif;
+  transform: skewX(-9deg);
+  letter-spacing: -0.03em;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ------------------------------------------------------------------ */
+/*  POVRCHY                                                            */
+/* ------------------------------------------------------------------ */
+
+/* Aby šlo světlo pod kurzorem plynule nabíhat. */
+@property --spot {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.card {
+  --spot: 0;
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.075);
+  border-radius: 18px;
+  background-color: #0f0f14;
+  background-image:
+    radial-gradient(
+      340px circle at var(--mx) var(--my),
+      rgb(255 46 126 / var(--spot)),
+      transparent 62%
+    ),
+    linear-gradient(180deg, rgb(255 255 255 / 0.045), transparent 42%);
+  transition:
+    --spot 0.4s ease,
+    border-color 0.3s ease;
+}
+
+.card-hover {
+  transition:
+    --spot 0.4s ease,
+    border-color 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease;
+}
+.card-hover:hover {
+  border-color: rgb(255 46 126 / 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 24px 50px -30px rgb(255 46 126 / 0.6);
+}
+
+/* Světlo pod kurzorem – souřadnice nastavuje komponenta Spotlight. */
+.card:hover {
+  --spot: 0.09;
+}
+
+/* .card nastavuje `border` zkratkou, takže styl rámečku měníme takhle */
+.card-dashed {
+  border-style: dashed;
+  border-color: rgb(255 255 255 / 0.11);
+}
+
+/* Číslo dresu zrůžoví, když najedeš na kartu */
+.group:hover .stroke-text {
+  -webkit-text-stroke-color: var(--color-pink);
+}
+
+/* Vlasová linka s růžovým středem – čistší náhrada za šrafování */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 46 126 / 0.7) 22%,
+    rgb(255 46 126 / 0.7) 78%,
+    transparent
+  );
+}
+
+/* Jemná růžová záře */
+.glow {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(255 46 126 / 0.28),
+    transparent 70%
+  );
+}
+
+/* Svislé linky jako čáry na ledě */
+.rink-lines {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.022) 0 1px,
+    transparent 1px 116px
+  );
+}
+
+/* Kruhy za znakem v hero sekci */
+.ring {
+  border-radius: 9999px;
+  border: 1px solid rgb(255 255 255 / 0.05);
+}
+.ring-dashed {
+  border-radius: 9999px;
+  border: 1px dashed rgb(255 46 126 / 0.16);
+  animation: spin-slow 90s linear infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Zrno přes celou stránku – dodá tisknutý, ne-digitální pocit */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-size: 180px 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Postupné mizení okrajů u vodorovných pruhů */
+.fade-x {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+}
+
+.no-bar {
+  scrollbar-width: none;
+}
+.no-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ukazatel odscrollované části stránky pod hlavičkou */
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(
+    90deg,
+    var(--color-pink-deep),
+    var(--color-pink)
+  );
+  pointer-events: none;
+}
+
+/* Tabulky – zarovnané číslice */
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ */
+/*  ANIMACE                                                            */
+/* ------------------------------------------------------------------ */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+.marquee-track--fast {
+  animation-duration: 24s;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.float-y {
+  animation: float-y 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.07);
+  }
+}
+.breathe {
+  animation: breathe 7s ease-in-out infinite;
+}
+
+/* Odhalování při scrollu (řídí komponenta Reveal) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Podtržení odkazu, které vyjede zleva */
+.link-underline {
+  background-image: linear-gradient(var(--color-pink), var(--color-pink));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  PŘÍSTUPNOST – respektuj vypnuté animace                            */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }

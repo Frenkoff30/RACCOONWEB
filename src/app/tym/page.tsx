@@ -1,42 +1,46 @@
-import { players } from "@/data/players";
+import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
+import RosterGrid from "@/components/RosterGrid";
+import { IconUsers } from "@/components/Icons";
+import { roster, rosterSize, usedPositions } from "@/data/players";
+
+export const metadata: Metadata = {
+  title: "Soupiska",
+  description:
+    "Soupiska hobby hokejového týmu Raccoons Hlinsko – brankáři, obránci a útočníci s čísly dresů.",
+};
 
 export default function TymPage() {
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="font-display text-4xl md:text-5xl text-center mb-2">
-        Naše <span className="text-pink">soupiska</span>
-      </h1>
-      <p className="text-center text-white/70 mb-10">
-        Banda, která to na ledě (a po něm) rozjíždí. 🦝
-      </p>
+  const positions = usedPositions();
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {players.map((player) => (
-          <div
-            key={player.number}
-            className="bg-graphite rounded-2xl p-6 border-2 border-pink/30 hover:border-pink transition-colors text-center"
-          >
-            <div className="font-display text-5xl text-pink mb-2">
-              #{player.number}
+  return (
+    <>
+      <PageHero
+        eyebrow="Soupiska"
+        title={
+          <>
+            Kdo za nás <span className="text-pink">jezdí</span>
+          </>
+        }
+        lead="Brankáři, obránci a útočníci. Hráče najdeš i podle jména, přezdívky nebo čísla dresu."
+        aside={
+          <div className="card flex items-center gap-5 px-6 py-5">
+            <IconUsers className="h-7 w-7 text-pink" />
+            <div>
+              <p className="display text-4xl leading-none text-chalk">
+                {rosterSize}
+              </p>
+              <p className="cond mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Hráčů na soupisce
+              </p>
             </div>
-            <h2 className="font-display text-2xl mb-1">{player.name}</h2>
-            <p className="text-sm uppercase tracking-wide text-white/50 mb-3">
-              {player.position}
-            </p>
-            {(player.goals !== undefined || player.assists !== undefined) && (
-              <p className="text-sm text-white/70 mb-2">
-                ⚽ {player.goals ?? 0} gólů &nbsp;·&nbsp; 🎯{" "}
-                {player.assists ?? 0} asistencí
-              </p>
-            )}
-            {player.bio && (
-              <p className="text-white/60 text-sm italic">
-                &ldquo;{player.bio}&rdquo;
-              </p>
-            )}
           </div>
-        ))}
-      </div>
-    </div>
+        }
+      />
+
+      <section className="wrap py-16 sm:py-20">
+        <RosterGrid players={roster} positions={positions} />
+      </section>
+    </>
   );
 }

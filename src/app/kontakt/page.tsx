@@ -1,47 +1,153 @@
+import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
+import ContactForm from "@/components/ContactForm";
+import Reveal from "@/components/Reveal";
+import {
+  IconArrowUpRight,
+  IconClock,
+  IconFacebook,
+  IconInstagram,
+  IconMail,
+  IconPhone,
+  IconPin,
+} from "@/components/Icons";
+import { team } from "@/data/team";
+
+export const metadata: Metadata = {
+  title: "Kontakt",
+  description:
+    "Kontakt na hobby hokejový tým Raccoons Hlinsko – e-mail, Instagram a kde hrajeme.",
+};
+
 export default function KontaktPage() {
+  const channels = [
+    {
+      Icon: IconMail,
+      label: "E-mail",
+      value: team.contact.email,
+      href: `mailto:${team.contact.email}`,
+    },
+    team.contact.phone
+      ? {
+          Icon: IconPhone,
+          label: "Telefon",
+          value: team.contact.phone,
+          href: `tel:${team.contact.phone.replace(/\s/g, "")}`,
+        }
+      : null,
+    team.social.instagram
+      ? {
+          Icon: IconInstagram,
+          label: "Instagram",
+          value: team.social.instagramHandle,
+          href: team.social.instagram,
+          external: true,
+        }
+      : null,
+    team.social.facebook
+      ? {
+          Icon: IconFacebook,
+          label: "Facebook",
+          value: "Naše stránka",
+          href: team.social.facebook,
+          external: true,
+        }
+      : null,
+  ].filter(Boolean) as {
+    Icon: typeof IconMail;
+    label: string;
+    value: string;
+    href: string;
+    external?: boolean;
+  }[];
+
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 text-center">
-      <h1 className="font-display text-4xl md:text-5xl mb-2">
-        Chceš si <span className="text-pink">zahrát</span> s námi?
-      </h1>
-      <p className="text-white/70 mb-10">
-        Sháníme posily, fanoušky i protihráče, kteří to umí ustát s humorem.
-        Ozvi se!
-      </p>
+    <>
+      <PageHero
+        eyebrow="Kontakt"
+        title={
+          <>
+            Ozvi se <span className="text-pink">nám</span>
+          </>
+        }
+        lead="Domluva zápasu, merch nebo cokoliv jiného – napiš na e-mail nebo na Instagram."
+      />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="bg-graphite rounded-xl p-6 border-2 border-pink/30">
-          <p className="font-display text-2xl text-pink mb-2">E-mail</p>
-          <a
-            href="mailto:raccoons@example.com"
-            className="text-white/80 hover:text-pink transition-colors"
-          >
-            raccoons@example.com
-          </a>
-        </div>
-        <div className="bg-graphite rounded-xl p-6 border-2 border-pink/30">
-          <p className="font-display text-2xl text-pink mb-2">Instagram</p>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/80 hover:text-pink transition-colors"
-          >
-            @raccoons.hockey
-          </a>
-        </div>
-      </div>
+      <section className="wrap py-16 sm:py-20">
+        <div className="grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-12">
+          <Reveal>
+            <ContactForm email={team.contact.email} />
+          </Reveal>
 
-      <div className="mt-10 bg-graphite rounded-xl p-6 border-2 border-pink/30">
-        <p className="font-display text-2xl text-pink mb-2">Tréninky & zápasy</p>
-        <p className="text-white/80">
-          Hrajeme každý týden – sleduj naši stránku s{" "}
-          <a href="/zapasy" className="text-pink underline">
-            výsledky a statistikami
-          </a>{" "}
-          pro aktuální termíny.
-        </p>
-      </div>
-    </div>
+          <div className="flex flex-col gap-4">
+            <Reveal delay={60}>
+              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                {channels.map(({ Icon, label, value, href, external }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      {...(external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="card card-hover group flex items-center gap-4 p-5"
+                    >
+                      <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-pink transition-colors group-hover:border-pink">
+                        <Icon className="h-[18px] w-[18px]" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="cond block text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                          {label}
+                        </span>
+                        <span className="block truncate text-[0.95rem] text-chalk">
+                          {value}
+                        </span>
+                      </span>
+                      <IconArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-muted transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-pink" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="card relative overflow-hidden p-7">
+                <div
+                  aria-hidden
+                  className="glow absolute -right-16 -top-16 h-48 w-48"
+                />
+                <p className="eyebrow relative text-pink">Kde hrajeme</p>
+
+                <dl className="relative mt-6 space-y-5">
+                  <div className="flex gap-3">
+                    <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-pink" />
+                    <div>
+                      <dt className="cond text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                        Stadion
+                      </dt>
+                      <dd className="mt-1 text-[0.95rem] text-chalk">
+                        {team.rink}
+                        <span className="block text-muted">{team.city}</span>
+                      </dd>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <IconClock className="mt-0.5 h-4 w-4 shrink-0 text-pink" />
+                    <div>
+                      <dt className="cond text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                        Trénink
+                      </dt>
+                      <dd className="mt-1 text-[0.95rem] text-chalk">
+                        {team.trainingSlot}
+                      </dd>
+                    </div>
+                  </div>
+                </dl>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

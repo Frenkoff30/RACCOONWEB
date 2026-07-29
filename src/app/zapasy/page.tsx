@@ -1,117 +1,202 @@
-import { matches, getStandingsSummary } from "@/data/matches";
-import { players } from "@/data/players";
+import type { Metadata } from "next";
+import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import Reveal from "@/components/Reveal";
+import MatchRow, { FormStrip, MONTHS_SHORT } from "@/components/MatchRow";
+import NextMatchCard from "@/components/NextMatchCard";
+import {
+  IconArrowRight,
+  IconAway,
+  IconCalendar,
+  IconClock,
+  IconHome,
+} from "@/components/Icons";
+import {
+  getForm,
+  getSeasonStats,
+  nextMatch,
+  playedMatches,
+  splitDate,
+  upcomingMatches,
+} from "@/data/matches";
+
+export const metadata: Metadata = {
+  title: "Zápasy",
+  description:
+    "Program a výsledky zápasů týmu Raccoons Hlinsko včetně střelců a bilance sezóny.",
+};
 
 export default function ZapasyPage() {
-  const stats = getStandingsSummary();
-  const topScorers = [...players]
-    .sort((a, b) => (b.goals ?? 0) + (b.assists ?? 0) - ((a.goals ?? 0) + (a.assists ?? 0)))
-    .slice(0, 5);
+  const stats = getSeasonStats();
+  const form = getForm(5);
+  const later = upcomingMatches.slice(1);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="font-display text-4xl md:text-5xl text-center mb-2">
-        Zápasy & <span className="text-pink">statistiky</span>
-      </h1>
-      <p className="text-center text-white/70 mb-10">
-        Vítězství slavíme nahlas, prohry hned zapomeneme. 🏒
-      </p>
+    <>
+      <PageHero
+        eyebrow="Zápasy"
+        title={
+          <>
+            Program a <span className="text-pink">výsledky</span>
+          </>
+        }
+        lead="Nadcházející termíny i odehraná utkání se skóre a střelci."
+        aside={
+          form.length > 0 ? (
+            <div className="card px-6 py-5">
+              <p className="cond text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Forma · poslední zápasy
+              </p>
+              <div className="mt-3">
+                <FormStrip form={form} />
+              </div>
+            </div>
+          ) : undefined
+        }
+      />
 
-      {/* Standings summary */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center mb-12">
-        <SummaryBox label="Zápasy" value={stats.played} />
-        <SummaryBox label="Výhry" value={stats.wins} accent />
-        <SummaryBox label="Prohry" value={stats.losses} />
-        <SummaryBox label="Remízy" value={stats.draws} />
-        <SummaryBox label="Skóre" value={`${stats.goalsFor}:${stats.goalsAgainst}`} />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* Match list */}
-        <div className="lg:col-span-2">
-          <h2 className="font-display text-2xl mb-4 text-pink">Poslední zápasy</h2>
-          <div className="space-y-4">
-            {matches.map((m) => {
-              const won = m.scoreUs > m.scoreThem;
-              const draw = m.scoreUs === m.scoreThem;
-              return (
-                <div
-                  key={`${m.date}-${m.opponent}`}
-                  className="bg-graphite rounded-xl p-4 border-2 border-pink/30"
-                >
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div>
-                      <p className="text-sm text-white/50">
-                        {new Date(m.date).toLocaleDateString("cs-CZ")} ·{" "}
-                        {m.home ? "Doma" : "Venku"}
-                      </p>
-                      <p className="font-display text-xl">
-                        Raccoons vs {m.opponent}
-                      </p>
-                    </div>
-                    <div
-                      className={`font-display text-3xl px-4 py-1 rounded-lg ${
-                        won
-                          ? "bg-pink text-ink"
-                          : draw
-                          ? "bg-white/20 text-white"
-                          : "bg-white/5 text-white/70"
-                      }`}
-                    >
-                      {m.scoreUs}:{m.scoreThem}
-                    </div>
-                  </div>
-                  {m.scorers && (
-                    <p className="text-sm text-white/70 mt-2">
-                      <span className="text-pink">Branky:</span> {m.scorers}
-                    </p>
-                  )}
-                  {m.note && (
-                    <p className="text-sm text-white/50 mt-1 italic">
-                      {m.note}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
+      {/* Bilance */}
+      <section className="wrap py-14 sm:py-16">
+        <Reveal>
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-6">
+            <Cell label="Zápasů" value={stats.played} />
+            <Cell label="Výher" value={stats.wins} accent />
+            <Cell label="Remíz" value={stats.draws} />
+            <Cell label="Proher" value={stats.losses} />
+            <Cell
+              label="Skóre"
+              value={`${stats.goalsFor}:${stats.goalsAgainst}`}
+            />
+            <Cell label="Úspěšnost" value={`${stats.winRate} %`} accent />
           </div>
+        </Reveal>
+
+        <Reveal className="mt-4">
+          <Link
+            href="/tabulka"
+            className="cond group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-chalk transition-colors hover:text-pink"
+          >
+            Tabulka soutěže a bodování
+            <IconArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* Nadcházející */}
+      <section className="border-y border-line bg-ink-2 py-16 sm:py-20">
+        <div className="wrap">
+          <h2 className="display text-3xl text-chalk sm:text-4xl">
+            Nadcházející <span className="text-pink">zápasy</span>
+          </h2>
+
+          {nextMatch ? (
+            <>
+              <Reveal className="mt-8">
+                <NextMatchCard match={nextMatch} />
+              </Reveal>
+
+              {later.length > 0 && (
+                <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {later.map((m, i) => {
+                    const { day, month } = splitDate(m.date);
+                    return (
+                      <Reveal
+                        as="li"
+                        key={`${m.date}-${m.opponent}`}
+                        delay={i * 60}
+                      >
+                        <div className="card card-hover flex h-full items-center gap-5 p-5">
+                          <div className="w-12 shrink-0 text-center">
+                            <p className="display text-2xl leading-none text-chalk">
+                              {Number(day)}
+                            </p>
+                            <p className="cond mt-1 text-[0.6875rem] uppercase tracking-[0.18em] text-muted">
+                              {MONTHS_SHORT[Number(month) - 1]}
+                            </p>
+                          </div>
+                          <div className="min-w-0">
+                            <p className="cond flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-muted">
+                              {m.home ? (
+                                <IconHome className="h-3 w-3" />
+                              ) : (
+                                <IconAway className="h-3 w-3" />
+                              )}
+                              {m.home ? "Doma" : "Venku"}
+                              {m.time && (
+                                <>
+                                  <IconClock className="ml-1 h-3 w-3" />
+                                  {m.time}
+                                </>
+                              )}
+                            </p>
+                            <p className="display mt-1 truncate text-lg text-chalk">
+                              {m.opponent}
+                            </p>
+                          </div>
+                        </div>
+                      </Reveal>
+                    );
+                  })}
+                </ul>
+              )}
+            </>
+          ) : (
+            <Reveal className="mt-8">
+              <div className="card flex flex-col items-start gap-3 p-8">
+                <IconCalendar className="h-6 w-6 text-pink" />
+                <p className="display text-2xl text-chalk">
+                  Žádný termín v plánu
+                </p>
+                <p className="text-sm leading-relaxed text-muted">
+                  Jakmile se domluví další zápas, objeví se tady.
+                </p>
+              </div>
+            </Reveal>
+          )}
+        </div>
+      </section>
+
+      {/* Odehrané */}
+      <section className="wrap py-16 sm:py-20">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <h2 className="display text-3xl text-chalk sm:text-4xl">
+            Odehrané <span className="text-pink">zápasy</span>
+          </h2>
+          <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
+            Doma {playedMatches.filter((m) => m.home).length} · venku{" "}
+            {playedMatches.filter((m) => !m.home).length}
+          </p>
         </div>
 
-        {/* Top scorers */}
-        <div>
-          <h2 className="font-display text-2xl mb-4 text-pink">Kanadské bodování</h2>
-          <div className="bg-graphite rounded-xl border-2 border-pink/30 overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-pink text-ink font-display text-base">
-                <tr>
-                  <th className="text-left py-2 px-3">Hráč</th>
-                  <th className="py-2 px-2">G</th>
-                  <th className="py-2 px-2">A</th>
-                  <th className="py-2 px-2">B</th>
-                </tr>
-              </thead>
-              <tbody>
-                {topScorers.map((p) => (
-                  <tr key={p.number} className="border-t border-white/10">
-                    <td className="py-2 px-3">
-                      #{p.number} {p.name}
-                    </td>
-                    <td className="text-center py-2 px-2">{p.goals ?? 0}</td>
-                    <td className="text-center py-2 px-2">{p.assists ?? 0}</td>
-                    <td className="text-center py-2 px-2 text-pink font-bold">
-                      {(p.goals ?? 0) + (p.assists ?? 0)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+        {playedMatches.length > 0 ? (
+          <ul className="mt-8 space-y-4">
+            {playedMatches.map((m, i) => (
+              <Reveal
+                as="li"
+                key={`${m.date}-${m.opponent}`}
+                delay={Math.min(i, 6) * 50}
+              >
+                <MatchRow match={m} />
+              </Reveal>
+            ))}
+          </ul>
+        ) : (
+          <Reveal className="mt-8">
+            <div className="card flex flex-col items-start gap-3 p-8">
+              <IconCalendar className="h-6 w-6 text-pink" />
+              <p className="display text-2xl text-chalk">Zatím bez zápasu</p>
+              <p className="text-sm leading-relaxed text-muted">
+                První výsledek se tu objeví po odehraném utkání.
+              </p>
+            </div>
+          </Reveal>
+        )}
+      </section>
+    </>
   );
 }
 
-function SummaryBox({
+function Cell({
   label,
   value,
   accent,
@@ -121,15 +206,17 @@ function SummaryBox({
   accent?: boolean;
 }) {
   return (
-    <div className="bg-graphite rounded-xl p-4 border-2 border-pink/30">
+    <div className="bg-ink px-5 py-6">
       <p
-        className={`font-display text-3xl md:text-4xl ${
-          accent ? "text-pink" : "text-white"
+        className={`display text-4xl sm:text-5xl ${
+          accent ? "text-pink" : "text-chalk"
         }`}
       >
         {value}
       </p>
-      <p className="text-sm text-white/60 mt-1">{label}</p>
+      <p className="cond mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+        {label}
+      </p>
     </div>
   );
 }

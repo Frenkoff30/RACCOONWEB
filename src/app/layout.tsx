@@ -1,39 +1,92 @@
-import type { Metadata } from "next";
-import { Bangers, Rubik } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Anton, Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Spotlight from "@/components/Spotlight";
+import ScrollProgress from "@/components/ScrollProgress";
+import { siteUrl, team } from "@/data/team";
 
-const bangers = Bangers({
-  variable: "--font-bangers",
-  subsets: ["latin"],
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin", "latin-ext"],
   weight: "400",
+  display: "swap",
 });
 
-const rubik = Rubik({
-  variable: "--font-rubik",
-  subsets: ["latin"],
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+const barlow = Barlow({
+  variable: "--font-barlow",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Raccoons | Hobby hokejový tým",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${team.name} | ${team.tagline}`,
+    template: `%s | ${team.name}`,
+  },
   description:
-    "Raccoons – parta kámošů, co to na ledě hodně rádo rozdávájí. Sledujte naše výsledky, statistiky a fotky ze zápasů.",
+    "Raccoons Hlinsko – hobby hokejový tým. Soupiska, výsledky, tabulka soutěže, kanadské bodování a galerie.",
+  keywords: [
+    "hobby hokej",
+    "hokejový tým",
+    "Raccoons Hlinsko",
+    "Hlinsko hokej",
+    "amatérský hokej",
+    "soupiska",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "cs_CZ",
+    siteName: team.name,
+    title: `${team.name} | ${team.tagline}`,
+    description: team.claim,
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Logo hokejového týmu Raccoons",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#08080a",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="cs"
-      className={`${bangers.variable} ${rubik.variable} h-full antialiased`}
+      className={`${anton.variable} ${barlowCondensed.variable} ${barlow.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-white">
+      <body className="flex min-h-dvh flex-col bg-ink text-chalk antialiased">
+        <div className="grain" aria-hidden="true" />
+        <ScrollProgress />
+        <Spotlight />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main id="obsah" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
