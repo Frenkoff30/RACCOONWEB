@@ -11,6 +11,7 @@ const links = [
   { href: "/tym", label: "Soupiska" },
   { href: "/zapasy", label: "Zápasy" },
   { href: "/tabulka", label: "Tabulka" },
+  { href: "/bodovani", label: "Bodování" },
   { href: "/galerie", label: "Galerie" },
   { href: "/obchod", label: "Obchod" },
 ];
@@ -57,7 +58,7 @@ export default function Navbar() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${
           scrolled || open
-            ? "border-b border-line bg-ink/85 backdrop-blur-xl"
+            ? "border-b border-line bg-ink/90 backdrop-blur-md"
             : "border-b border-transparent bg-transparent"
         }`}
       >
@@ -69,7 +70,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="group flex items-center gap-3"
-            aria-label="Raccoons – domovská stránka"
+            aria-label="Raccoons, domovská stránka"
           >
             <Logo
               priority

@@ -11,7 +11,7 @@ const base =
 const variants: Record<Variant, string> = {
   primary: "bg-pink text-ink hover:bg-pink-soft",
   ghost:
-    "border border-white/25 text-chalk hover:border-pink hover:text-pink bg-white/[0.02]",
+    "border border-[var(--outline,rgb(255_255_255/0.25))] text-chalk hover:border-pink hover:text-pink",
   quiet: "text-muted hover:text-pink",
 };
 

@@ -7,7 +7,7 @@ import { roster, rosterSize, usedPositions } from "@/data/players";
 export const metadata: Metadata = {
   title: "Soupiska",
   description:
-    "Soupiska hobby hokejového týmu Raccoons Hlinsko – brankáři, obránci a útočníci s čísly dresů.",
+    "Soupiska hobby hokejového týmu Raccoons Hlinsko: brankáři, obránci a útočníci s čísly dresů.",
 };
 
 export default function TymPage() {

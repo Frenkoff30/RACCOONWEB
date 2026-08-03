@@ -108,7 +108,7 @@ export default function RosterGrid({ players, positions }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Hledat jméno nebo číslo"
-            className="h-10 w-full rounded-full border border-line bg-white/[0.03] px-4 pr-10 text-sm text-chalk placeholder:text-muted focus:border-pink focus:outline-none"
+            className="h-10 w-full rounded-full border border-line bg-[var(--field-bg,rgb(255_255_255/0.03))] px-4 pr-10 text-sm text-chalk placeholder:text-muted focus:border-pink focus:outline-none"
           />
           {query && (
             <button

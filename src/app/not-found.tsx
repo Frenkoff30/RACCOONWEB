@@ -6,15 +6,11 @@ export default function NotFound() {
   return (
     <section className="relative isolate overflow-hidden">
       <div aria-hidden className="absolute inset-0 rink-lines" />
-      <div
-        aria-hidden
-        className="glow absolute left-1/2 top-0 h-[460px] w-[760px] max-w-[130vw] -translate-x-1/2 -translate-y-1/3"
-      />
 
       <div className="wrap relative flex min-h-[80svh] flex-col items-center justify-center py-32 text-center">
         <div
           aria-hidden
-          className="float-y pointer-events-none absolute w-[min(50vw,340px)] opacity-[0.09]"
+          className="pointer-events-none absolute w-[min(50vw,340px)] opacity-[0.09]"
         >
           <Logo className="w-full" />
         </div>

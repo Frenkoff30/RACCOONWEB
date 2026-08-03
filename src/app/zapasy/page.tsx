@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import SectionDivider from "@/components/SectionDivider";
 import Reveal from "@/components/Reveal";
 import MatchRow, { FormStrip, MONTHS_SHORT } from "@/components/MatchRow";
 import NextMatchCard from "@/components/NextMatchCard";
@@ -76,7 +77,7 @@ export default function ZapasyPage() {
             href="/tabulka"
             className="cond group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-chalk transition-colors hover:text-pink"
           >
-            Tabulka soutěže a bodování
+            Tabulka soutěže
             <IconArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </Reveal>
@@ -156,8 +157,11 @@ export default function ZapasyPage() {
         </div>
       </section>
 
-      {/* Odehrané */}
-      <section className="wrap py-16 sm:py-20">
+      <SectionDivider from="dark" to="light" />
+
+      {/* Odehrané – světlá sekce */}
+      <section className="section-light">
+        <div className="wrap py-16 sm:py-20">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <h2 className="display text-3xl text-chalk sm:text-4xl">
             Odehrané <span className="text-pink">zápasy</span>
@@ -191,6 +195,7 @@ export default function ZapasyPage() {
             </div>
           </Reveal>
         )}
+        </div>
       </section>
     </>
   );

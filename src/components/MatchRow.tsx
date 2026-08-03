@@ -23,7 +23,7 @@ export const MONTHS_SHORT = [
 
 const resultStyle: Record<Result, string> = {
   V: "bg-pink text-ink",
-  R: "bg-white/12 text-chalk",
+  R: "bg-[var(--chip-bg,rgb(255_255_255/0.12))] text-chalk",
   P: "border border-line text-muted",
 };
 

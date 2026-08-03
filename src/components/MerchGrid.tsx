@@ -11,7 +11,7 @@ export default function MerchGrid({ items }: { items: MerchItem[] }) {
         return (
           <Reveal as="li" key={item.id} delay={Math.min(i, 6) * 60}>
             <article className="card card-hover group flex h-full flex-col">
-              <div className="relative aspect-square overflow-hidden border-b border-line bg-white/[0.02]">
+              <div className="relative aspect-square overflow-hidden border-b border-line bg-[var(--field-bg,rgb(255_255_255/0.02))]">
                 {item.image ? (
                   <Image
                     src={item.image}

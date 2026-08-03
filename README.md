@@ -21,7 +21,7 @@ Veškerý obsah je v `src/data/` – žádné komponenty upravovat nemusíš.
 | `src/data/team.ts` | Název, claim, text „O nás“, e-mail, Instagram, stadion, text do běžícího pruhu. Řádky s `TODO` čekají na reálné údaje. |
 | `src/data/players.ts` | Soupiska – čísla, jména, pozice, role (C/A), přezdívky, fotky, góly a asistence. |
 | `src/data/matches.ts` | Zápasy. Bez `scoreUs` / `scoreThem` se zápas bere jako **nadcházející**, se skóre jako odehraný. |
-| `src/data/standings.ts` | Tabulka soutěže – týmy, zápasy, výhry, skóre. Body i pořadí se dopočítají. |
+| `src/data/standings.ts` | Tabulka soutěže – pořadí určuje pořadí v poli, `previous` je umístění z minulého kola. |
 | `src/data/merch.ts` | Obchod. Prázdné pole = stránka ukáže „připravujeme“. |
 | `src/data/gallery.ts` | Fotky v galerii. |
 
@@ -30,15 +30,18 @@ počet hráčů podle formací – se z těchto dat počítá samo.
 
 ### Tabulka soutěže
 
-V `standings.ts` stačí u každého týmu vyplnit odehrané zápasy, výhry, remízy,
-prohry a skóre. Body se spočítají podle `pointsRule` (teď 3 / 1 / 0) a pořadí
-podle bodů, rozdílu skóre a vstřelených branek. Řádek s hodnotou `ourTeam` se
-v tabulce zvýrazní růžově.
+Pořadí se bere z pořadí týmů v poli `rows` – stačí je přeskládat a čísla se
+přepočítají. Řádek s hodnotou `ourTeam` se zvýrazní růžově.
+
+Sloupce Z / V / R / P / skóre / body jsou nepovinné. Objeví se teprve tehdy,
+až je vyplníš aspoň u jednoho týmu – body se spočítají podle `pointsRule`
+(teď 3 / 1 / 0). Na začátku sezóny jsou všude nuly.
 
 ### Kanadské bodování
 
-Vyplň hráčům `goals`, `assists` a případně `games` v `players.ts`. Hráči bez
-zapsaných statistik se v tabulce neobjeví, takže se dá začít postupně.
+Vyplň hráčům `goals`, `assists` a případně `games` v `players.ts`. Na stránce
+`/bodovani` je rozdělené na brankáře, obránce a útočníky; tabulky vypisují
+celou soupisku včetně nul, takže jsou na začátku sezóny připravené.
 
 ### Soupiska
 
@@ -62,6 +65,14 @@ se řeší přes e-mail nebo Instagram.
 Karta hráče bez fotky vypadá záměrně dobře i tak – místo portrétu se ukáže
 číslo dresu a znak myvala.
 
+### Světlé a tmavé sekce
+
+Web střídá tmavé a světlé bloky. Stačí sekci obalit třídou `section-light`
+– ta přebarví značkové tokeny (`--color-ink`, `--color-chalk`, `--color-pink`…),
+takže se všechny utility uvnitř otočí samy. Mezi bloky se vkládá
+`<SectionDivider from="dark" to="light" />` – buď šikmé růžovo-černo-bílé
+pruhy, nebo `variant="wave"` pro vlnku.
+
 ## Značka
 
 | | |
@@ -82,10 +93,11 @@ Oba se generují z loga – když se logo změní, přegeneruj je taky.
 
 ## Stránky
 
-- `/` – hero, o nás, nejbližší zápas, poslední výsledky, tabulka, kanadské bodování, galerie, obchod
+- `/` – hero, o nás, nejbližší zápas, poslední výsledky, galerie, obchod
 - `/tym` – soupiska rozdělená na formace, s vyhledáváním a filtrem
 - `/zapasy` – bilance sezóny, nadcházející i odehrané zápasy
-- `/tabulka` – tabulka soutěže a kanadské bodování
+- `/tabulka` – tabulka soutěže
+- `/bodovani` – kanadské bodování po formacích
 - `/galerie` – mřížka fotek s lightboxem (šipky, Esc)
 - `/obchod` – klubový merch (zatím připravený, bez zboží)
 - `/kontakt` – formulář (otevře poštovního klienta), kontakty, kde hrajeme

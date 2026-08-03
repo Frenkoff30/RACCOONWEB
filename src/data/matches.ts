@@ -19,67 +19,30 @@ export type Match = {
 };
 
 /* -------------------------------------------------------------------------
-   ZÁPASY – UKÁZKOVÁ DATA
-   Tohle jsou vymyšlené zápasy, aby web nebyl prázdný. Přepiš je reálnými.
-   Bez `scoreUs` / `scoreThem` se zápas bere jako nadcházející a objeví se
-   v sekci "Nejbližší zápas". Pořadí v poli nehraje roli, řadí se podle data.
-   ------------------------------------------------------------------------- */
-export const matches: Match[] = [
-  // — nadcházející —
-  {
-    date: "2026-08-14",
-    time: "20:00",
-    opponent: "Ice Foxes",
-    home: true,
-    venue: "Zimní stadion",
-  },
-  {
-    date: "2026-08-28",
-    time: "19:30",
-    opponent: "Steel Wolves",
-    home: false,
-    venue: "Hala soupeře",
-  },
+   ZÁPASY – SEZÓNA 2026/2027
+   Zatím prázdné, čeká se na první termíny.
 
-  // — odehrané —
-  {
-    date: "2026-05-10",
-    opponent: "Wild Bears",
-    home: true,
-    scoreUs: 6,
-    scoreThem: 3,
-    scorers: "Němec 2, Švanda, Benc, Sotona, Horák",
-    note: "Nejlepší třetina sezóny. Čtyři góly za deset minut.",
-  },
-  {
-    date: "2026-04-26",
-    opponent: "Ice Foxes",
-    home: false,
-    scoreUs: 2,
-    scoreThem: 5,
-    scorers: "Fousek, Zvolánek",
-    note: "První třetina nám ujela, zbytek už jen kosmetika.",
-  },
-  {
-    date: "2026-04-12",
-    opponent: "Steel Wolves",
-    home: true,
-    scoreUs: 4,
-    scoreThem: 4,
-    overtime: true,
-    scorers: "Suchý 2, Švanda, Remeš",
-    note: "Vyrovnáno půl minuty před koncem, po nájezdech bod pro každého.",
-  },
-  {
-    date: "2026-03-22",
-    opponent: "Black Ravens",
-    home: false,
-    scoreUs: 3,
-    scoreThem: 1,
-    scorers: "Sotona 2, Vodvářka",
-    note: "Tichý v bráně chytil, co se dalo.",
-  },
-];
+   Bez `scoreUs` / `scoreThem` se zápas bere jako nadcházející a objeví se
+   v sekci „Nejbližší zápas“. Se skóre se z něj stane odehraný zápas a rovnou
+   se dopočítá bilance, forma i úspěšnost. Pořadí v poli nehraje roli,
+   řadí se podle data.
+
+   Vzor k okopírování:
+
+   {
+     date: "2026-10-09",
+     time: "20:00",
+     opponent: "Wolves Krouna",
+     home: true,
+     venue: "Zimní stadion Hlinsko",
+     scoreUs: 4,
+     scoreThem: 2,
+     scorers: "Sotona 2, Benc, Švanda",
+     note: "Poznámka do zápisu.",
+   },
+   ------------------------------------------------------------------------- */
+export const matches: Match[] = [];
+
 
 /* ---------------------------- odvozené věci ---------------------------- */
 

@@ -15,10 +15,6 @@ export default function PageHero({ eyebrow, title, lead, aside }: Props) {
       <div aria-hidden className="absolute inset-0 rink-lines" />
       <div
         aria-hidden
-        className="glow absolute -top-40 left-1/4 h-[420px] w-[720px] max-w-[130vw] -translate-x-1/2"
-      />
-      <div
-        aria-hidden
         className="pointer-events-none absolute -right-20 top-1/2 w-[340px] -translate-y-1/2 opacity-[0.05] sm:-right-10"
       >
         <Logo className="w-full" />

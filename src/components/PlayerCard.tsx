@@ -45,7 +45,7 @@ export default function PlayerCard({ player }: { player: Player }) {
         {player.role && (
           <span className="cond rounded-full border border-pink/50 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-pink">
             {player.role}
-            <span className="sr-only"> – {roleLabel[player.role]}</span>
+            <span className="sr-only">, {roleLabel[player.role]}</span>
           </span>
         )}
       </div>

@@ -130,7 +130,7 @@
 /* Dutá (obtažená) verze nadpisu */
 .stroke-text {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.32);
+  -webkit-text-stroke: 1.5px var(--stroke-col, rgb(255 255 255 / 0.32));
 }
 .stroke-text-pink {
   -webkit-text-stroke-color: var(--color-pink);
@@ -156,56 +156,34 @@
 /*  POVRCHY                                                            */
 /* ------------------------------------------------------------------ */
 
-/* Aby šlo světlo pod kurzorem plynule nabíhat. */
-@property --spot {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
-}
-
 .card {
-  --spot: 0;
-  --mx: 50%;
-  --my: 0%;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 0.075);
+  border: 1px solid var(--card-border, rgb(255 255 255 / 0.075));
   border-radius: 18px;
-  background-color: #0f0f14;
-  background-image:
-    radial-gradient(
-      340px circle at var(--mx) var(--my),
-      rgb(255 46 126 / var(--spot)),
-      transparent 62%
-    ),
-    linear-gradient(180deg, rgb(255 255 255 / 0.045), transparent 42%);
-  transition:
-    --spot 0.4s ease,
-    border-color 0.3s ease;
+  background-color: var(--card-bg, #0f0f14);
+  background-image: linear-gradient(
+    180deg,
+    var(--card-sheen, rgb(255 255 255 / 0.045)),
+    transparent 42%
+  );
+  transition: border-color 0.3s ease;
 }
 
 .card-hover {
   transition:
-    --spot 0.4s ease,
     border-color 0.3s ease,
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s ease;
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card-hover:hover {
-  border-color: rgb(255 46 126 / 0.4);
+  border-color: rgb(255 46 126 / 0.45);
   transform: translateY(-2px);
-  box-shadow: 0 24px 50px -30px rgb(255 46 126 / 0.6);
-}
-
-/* Světlo pod kurzorem – souřadnice nastavuje komponenta Spotlight. */
-.card:hover {
-  --spot: 0.09;
 }
 
 /* .card nastavuje `border` zkratkou, takže styl rámečku měníme takhle */
 .card-dashed {
   border-style: dashed;
-  border-color: rgb(255 255 255 / 0.11);
+  border-color: var(--card-dash, rgb(255 255 255 / 0.11));
 }
 
 /* Číslo dresu zrůžoví, když najedeš na kartu */
@@ -225,15 +203,6 @@
   );
 }
 
-/* Jemná růžová záře */
-.glow {
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(255 46 126 / 0.28),
-    transparent 70%
-  );
-}
-
 /* Svislé linky jako čáry na ledě */
 .rink-lines {
   background-image: repeating-linear-gradient(
@@ -243,31 +212,13 @@
   );
 }
 
-/* Kruhy za znakem v hero sekci */
-.ring {
-  border-radius: 9999px;
-  border: 1px solid rgb(255 255 255 / 0.05);
-}
-.ring-dashed {
-  border-radius: 9999px;
-  border: 1px dashed rgb(255 46 126 / 0.16);
-  animation: spin-slow 90s linear infinite;
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Zrno přes celou stránku – dodá tisknutý, ne-digitální pocit */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 999;
   pointer-events: none;
-  opacity: 0.03;
-  mix-blend-mode: overlay;
+  opacity: 0.022;
   background-size: 180px 180px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -315,9 +266,83 @@
   pointer-events: none;
 }
 
-/* Tabulky – zarovnané číslice */
+/* Tabulky – zarovnané číslice a kompaktní řádky, ať se vejde celá */
 table {
   font-variant-numeric: tabular-nums;
+}
+
+.table-compact th,
+.table-compact td {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+.table-compact tbody th,
+.table-compact tbody td {
+  font-size: 0.875rem;
+}
+
+/* ------------------------------------------------------------------ */
+/*  SVĚTLÉ SEKCE                                                       */
+/*  Přebarví značkové tokeny, takže se všechny utility (bg-ink,        */
+/*  text-chalk, border-line…) uvnitř otočí samy.                       */
+/* ------------------------------------------------------------------ */
+.section-light {
+  --color-ink: #f4f4f7;
+  --color-ink-2: #e9e9ef;
+  --color-surface: #ffffff;
+  --color-chalk: #0b0b0e;
+  --color-muted: #55555f;
+  --color-line: #dcdce5;
+  --color-pink: #d1004f;
+  --color-pink-soft: #b30044;
+
+  --card-bg: #ffffff;
+  --card-border: #e3e3ec;
+  --card-sheen: rgb(0 0 0 / 0.022);
+  --card-dash: rgb(0 0 0 / 0.16);
+  --tint: rgb(0 0 0 / 0.035);
+  --stroke-col: rgb(0 0 0 / 0.3);
+  --outline: rgb(0 0 0 / 0.22);
+  --field-bg: #fafafc;
+  --chip-bg: rgb(0 0 0 / 0.08);
+
+  background-color: var(--color-ink);
+  color: var(--color-chalk);
+}
+
+/* Zvýraznění řádku tabulky – funguje ve světlé i tmavé sekci */
+.row-hover:hover {
+  background-color: var(--tint, rgb(255 255 255 / 0.025));
+}
+
+/* ------------------------------------------------------------------ */
+/*  PŘECHODY MEZI SEKCEMI                                              */
+/* ------------------------------------------------------------------ */
+
+/* Šikmé pruhy: růžová je vidět vždy, bílá vystoupí na tmavé polovině   */
+/* a černá na světlé – pruhy se tak přes hranici prohodí.               */
+.stripe-overlay {
+  background-image: repeating-linear-gradient(
+    -60deg,
+    #ff2e7e 0 10px,
+    transparent 10px 26px,
+    #ffffff 26px 33px,
+    transparent 33px 45px,
+    #0b0b0e 45px 52px,
+    transparent 52px 70px
+  );
+}
+
+/* Tenký pruh značkových barev – používá se jako akcent pod nadpisem */
+.brand-bars {
+  display: flex;
+  height: 5px;
+  width: 132px;
+  overflow: hidden;
+  border-radius: 999px;
+}
+.brand-bars > i {
+  flex: 1;
 }
 
 /* ------------------------------------------------------------------ */
@@ -335,6 +360,7 @@ table {
 .marquee-track {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: marquee 38s linear infinite;
 }
 .marquee-track--fast {
@@ -342,19 +368,6 @@ table {
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
-}
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-.float-y {
-  animation: float-y 8s ease-in-out infinite;
 }
 
 @keyframes breathe {

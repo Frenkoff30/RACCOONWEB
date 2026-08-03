@@ -237,3 +237,4 @@ export function IconSticks(props: IconProps) {
     </Base>
   );
 }
+

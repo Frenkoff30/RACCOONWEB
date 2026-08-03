@@ -97,10 +97,18 @@ export function rosterByPosition() {
   return { groups, rest };
 }
 
-/** Kanadské bodování – jen hráči, kteří mají zapsané statistiky. */
-export function scoringTable() {
-  return players
-    .filter(hasStats)
+/** Má vůbec někdo zapsané body? Podle toho se ukáže poznámka „zatím 0“. */
+export function hasAnyStats() {
+  return players.some(hasStats);
+}
+
+/**
+ * Kanadské bodování. Vypisuje celou soupisku (i s nulami), aby byla tabulka
+ * připravená na začátek sezóny. Volitelně jen jednu formaci.
+ */
+export function scoringTable(position?: Position) {
+  return roster
+    .filter((p) => !position || p.position === position)
     .sort(
       (a, b) =>
         points(b) - points(a) ||

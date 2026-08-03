@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import SectionDivider from "@/components/SectionDivider";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 import {
@@ -16,7 +17,7 @@ import { team } from "@/data/team";
 export const metadata: Metadata = {
   title: "Kontakt",
   description:
-    "Kontakt na hobby hokejový tým Raccoons Hlinsko – e-mail, Instagram a kde hrajeme.",
+    "Kontakt na hobby hokejový tým Raccoons Hlinsko: e-mail, Instagram a kde hrajeme.",
 };
 
 export default function KontaktPage() {
@@ -70,10 +71,13 @@ export default function KontaktPage() {
             Ozvi se <span className="text-pink">nám</span>
           </>
         }
-        lead="Domluva zápasu, merch nebo cokoliv jiného – napiš na e-mail nebo na Instagram."
+        lead="Domluva zápasu, merch nebo cokoliv jiného, napiš na e-mail nebo na Instagram."
       />
 
-      <section className="wrap py-16 sm:py-20">
+      <SectionDivider from="dark" to="light" />
+
+      <section className="section-light">
+        <div className="wrap py-16 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-12">
           <Reveal>
             <ContactForm email={team.contact.email} />
@@ -111,10 +115,6 @@ export default function KontaktPage() {
 
             <Reveal delay={120}>
               <div className="card relative overflow-hidden p-7">
-                <div
-                  aria-hidden
-                  className="glow absolute -right-16 -top-16 h-48 w-48"
-                />
                 <p className="eyebrow relative text-pink">Kde hrajeme</p>
 
                 <dl className="relative mt-6 space-y-5">
@@ -146,6 +146,7 @@ export default function KontaktPage() {
               </div>
             </Reveal>
           </div>
+        </div>
         </div>
       </section>
     </>

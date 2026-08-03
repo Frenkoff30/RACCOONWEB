@@ -18,7 +18,7 @@ export const team = {
   about:
     "Hrajeme hobby hokej v Hlinsku. Scházíme se jednou týdně na tréninku " +
     "a k tomu odehrajeme zápasy proti okolním týmům. Na webu najdeš soupisku, " +
-    "výsledky, tabulku a kanadské bodování – všechno průběžně doplňujeme.",
+    "výsledky, tabulku a kanadské bodování. Všechno průběžně doplňujeme.",
 
   /** Rok založení – nech `null`, dokud ho nepotvrdíte. TODO */
   founded: null as number | null,
@@ -43,7 +43,7 @@ export const team = {
   },
 
   /** Text do běžícího pruhu. */
-  ticker: ["Raccoons Hlinsko", "Hobby hokej", "@raccoons.hlinsko"],
+  ticker: ["Go Raccoons Go"],
 };
 
 export const siteUrl = "https://raccoons.cz"; // TODO: doplnit reálnou doménu

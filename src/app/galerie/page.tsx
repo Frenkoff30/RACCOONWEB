@@ -8,7 +8,7 @@ import { galleryItems } from "@/data/gallery";
 export const metadata: Metadata = {
   title: "Galerie",
   description:
-    "Fotky z ledu, z kabiny i po zápase – galerie hobby hokejového týmu Raccoons.",
+    "Fotky z ledu, z kabiny i po zápase, galerie hobby hokejového týmu Raccoons.",
 };
 
 export default function GaleriePage() {
@@ -59,11 +59,11 @@ export default function GaleriePage() {
               <p className="display text-2xl text-chalk">Přidat fotky</p>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 Nakopíruj je do{" "}
-                <code className="rounded bg-white/5 px-1.5 py-0.5 text-chalk">
+                <code className="rounded bg-[var(--tint,rgb(255_255_255/0.06))] px-1.5 py-0.5 text-chalk">
                   public/images/galerie/
                 </code>{" "}
                 a přidat řádek v{" "}
-                <code className="rounded bg-white/5 px-1.5 py-0.5 text-chalk">
+                <code className="rounded bg-[var(--tint,rgb(255_255_255/0.06))] px-1.5 py-0.5 text-chalk">
                   src/data/gallery.ts
                 </code>
                 .

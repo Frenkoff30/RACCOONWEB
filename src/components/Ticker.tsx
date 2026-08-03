@@ -7,22 +7,31 @@ type Props = {
   fast?: boolean;
 };
 
+/** Kolik pixelů zhruba zabere jedna položka i s odsazením a pukem. */
+const ITEM_WIDTH = 300;
+/** Jak široká má být jedna skupina, aby přesáhla i velký monitor. */
+const TARGET_WIDTH = 4200;
+
 /**
  * Nekonečně běžící pruh.
  *
  * Aby smyčka nedrhla, musí být obsah širší než obrazovka: jedna „skupina“
  * proto obsahuje položky několikrát za sebou a vykreslí se dvakrát. Animace
- * pak posune stopu přesně o 50 %, což je právě jedna skupina – přechod je
- * neviditelný a nikde nevznikne prázdné místo.
+ * posune stopu přesně o 50 %, což je právě jedna skupina – přechod je
+ * neviditelný a nikde nevznikne prázdné místo. Počet opakování se odvodí
+ * od délky seznamu, aby to fungovalo i s jedinou krátkou hláškou.
  */
-const REPEATS = 6;
-
 export default function Ticker({ items, tone = "pink", fast }: Props) {
   if (items.length === 0) return null;
 
+  const repeats = Math.max(
+    2,
+    Math.ceil(TARGET_WIDTH / (items.length * ITEM_WIDTH)),
+  );
+
   const group = (
     <div className="flex shrink-0 items-center" aria-hidden="true">
-      {Array.from({ length: REPEATS }).flatMap((_, r) =>
+      {Array.from({ length: repeats }).flatMap((_, r) =>
         items.map((text, i) => (
           <span key={`${r}-${i}`} className="flex items-center gap-8 px-8">
             <span className="cond whitespace-nowrap text-sm font-semibold uppercase tracking-[0.28em]">
@@ -43,7 +52,9 @@ export default function Ticker({ items, tone = "pink", fast }: Props) {
           : "border-y border-line bg-ink-2 text-muted"
       }`}
     >
-      <div className={`marquee-track py-3.5 ${fast ? "marquee-track--fast" : ""}`}>
+      <div
+        className={`marquee-track py-3.5 ${fast ? "marquee-track--fast" : ""}`}
+      >
         {group}
         {group}
       </div>

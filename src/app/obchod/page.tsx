@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import SectionDivider from "@/components/SectionDivider";
 import MerchGrid from "@/components/MerchGrid";
 import Reveal from "@/components/Reveal";
 import Logo from "@/components/Logo";
@@ -15,7 +16,7 @@ import { team } from "@/data/team";
 export const metadata: Metadata = {
   title: "Obchod",
   description:
-    "Klubový merch týmu Raccoons Hlinsko – mikiny, trika, čepice a samolepky s myvalem.",
+    "Klubový merch týmu Raccoons Hlinsko: mikiny, trika, čepice a samolepky s myvalem.",
 };
 
 export default function ObchodPage() {
@@ -33,14 +34,14 @@ export default function ObchodPage() {
         lead={
           hasItems
             ? "Oblečení a doplňky s myvalem. Objednávky řešíme e-mailem nebo na Instagramu."
-            : "Chystáme mikiny, trika, čepice a samolepky s myvalem. Zatím tu nic ke koupi není – jakmile bude, objeví se to přesně sem."
+            : "Chystáme mikiny, trika, čepice a samolepky s myvalem. Zatím tu nic ke koupi není, jakmile bude, objeví se to přesně sem."
         }
         aside={
           <div className="card flex items-center gap-5 px-6 py-5">
             <IconPuck className="h-7 w-7 text-pink" />
             <div>
               <p className="display text-4xl leading-none text-chalk">
-                {hasItems ? merchItems.length : "—"}
+                {hasItems ? merchItems.length : 0}
               </p>
               <p className="cond mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 {hasItems ? "Položek v nabídce" : "Nabídka se chystá"}
@@ -50,7 +51,10 @@ export default function ObchodPage() {
         }
       />
 
-      <section className="wrap py-16 sm:py-20">
+      <SectionDivider from="dark" to="light" />
+
+      <section className="section-light">
+        <div className="wrap py-16 sm:py-20">
         {hasItems ? (
           <MerchGrid items={merchItems} />
         ) : (
@@ -83,10 +87,6 @@ export default function ObchodPage() {
 
             <Reveal className="mt-14">
               <div className="card relative overflow-hidden p-8 sm:p-10">
-                <div
-                  aria-hidden
-                  className="glow absolute -right-20 -top-20 h-64 w-64"
-                />
                 <div className="relative max-w-xl">
                   <h2 className="display text-2xl text-chalk sm:text-3xl">
                     Chceš vědět, až to bude?
@@ -111,7 +111,7 @@ export default function ObchodPage() {
                     )}
                     <a
                       href={`mailto:${team.contact.email}`}
-                      className="cond inline-flex h-12 items-center gap-2.5 rounded-full border border-white/25 px-6 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-chalk transition-colors hover:border-pink hover:text-pink"
+                      className="cond inline-flex h-12 items-center gap-2.5 rounded-full border border-[var(--outline,rgb(255_255_255/0.25))] px-6 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-chalk transition-colors hover:border-pink hover:text-pink"
                     >
                       <IconMail className="h-4 w-4" />
                       Napsat e-mail
@@ -122,6 +122,7 @@ export default function ObchodPage() {
             </Reveal>
           </>
         )}
+        </div>
       </section>
     </>
   );

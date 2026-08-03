@@ -11,7 +11,6 @@ export default function NextMatchCard({ match }: { match: Match }) {
 
   return (
     <article className="card relative overflow-hidden p-7 sm:p-9">
-      <div aria-hidden className="glow absolute -right-24 -top-32 h-72 w-72" />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-10 -right-6 w-44 opacity-[0.06] sm:w-56"

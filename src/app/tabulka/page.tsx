@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import StandingsTable from "@/components/StandingsTable";
-import ScoringTable from "@/components/ScoringTable";
-import { FormStrip } from "@/components/MatchRow";
-import { IconTrophy } from "@/components/Icons";
-import { getForm } from "@/data/matches";
-import { getStandings, ourPosition, pointsRule, standings } from "@/data/standings";
-import { scoringTable } from "@/data/players";
+import SectionDivider from "@/components/SectionDivider";
+import { IconArrowRight } from "@/components/Icons";
+import { ourPosition, pointsRule, standings } from "@/data/standings";
 
 export const metadata: Metadata = {
-  title: "Tabulka a bodování",
+  title: "Tabulka soutěže",
   description:
-    "Tabulka soutěže a kanadské bodování hráčů týmu Raccoons Hlinsko.",
+    "Tabulka hobby ligy pro sezónu 2026/2027 s postavením týmu Raccoons Hlinsko.",
 };
 
 export default function TabulkaPage() {
   const us = ourPosition();
-  const rows = getStandings();
-  const scorers = scoringTable();
-  const form = getForm(5);
 
   return (
     <>
@@ -27,10 +22,10 @@ export default function TabulkaPage() {
         eyebrow={`${standings.league} · ${standings.season}`}
         title={
           <>
-            Tabulka a <span className="text-pink">bodování</span>
+            Tabulka <span className="text-pink">soutěže</span>
           </>
         }
-        lead="Postavení v soutěži a body jednotlivých hráčů. Aktualizujeme po každém odehraném kole."
+        lead="Postavení všech týmů v soutěži. Aktualizujeme po každém odehraném kole."
         aside={
           us ? (
             <div className="card px-6 py-5">
@@ -42,72 +37,48 @@ export default function TabulkaPage() {
                   {us.rank}.
                 </p>
                 <p className="cond pb-1 text-sm text-muted">
-                  z {rows.length} týmů
+                  z {standings.rows.length} týmů
                   <span className="mt-0.5 block text-chalk">
-                    {us.points} bodů
+                    {us.points ?? 0} bodů
                   </span>
                 </p>
               </div>
-              {form.length > 0 && (
-                <div className="mt-4 border-t border-line pt-4">
-                  <p className="cond text-[0.6875rem] uppercase tracking-[0.2em] text-muted">
-                    Forma
-                  </p>
-                  <div className="mt-2">
-                    <FormStrip form={form} />
-                  </div>
-                </div>
-              )}
             </div>
           ) : undefined
         }
       />
 
-      {/* Tabulka soutěže */}
-      <section className="wrap py-16 sm:py-20">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <h2 className="display text-3xl text-chalk sm:text-4xl">
-            Tabulka <span className="text-pink">soutěže</span>
-          </h2>
-          <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
-            Výhra {pointsRule.win} b · remíza {pointsRule.draw} b · prohra{" "}
-            {pointsRule.loss} b
-          </p>
-        </div>
+      <SectionDivider from="dark" to="light" />
 
-        <Reveal className="mt-8">
-          <StandingsTable />
-        </Reveal>
-      </section>
-
-      {/* Kanadské bodování */}
-      <section className="border-t border-line bg-ink-2 py-16 sm:py-20">
-        <div className="wrap">
+      <section className="section-light">
+        <div className="wrap py-16 sm:py-20">
           <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-            <h2 className="display text-3xl text-chalk sm:text-4xl">
-              Kanadské <span className="text-pink">bodování</span>
-            </h2>
-            {scorers.length > 0 && (
-              <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
-                {scorers.length}{" "}
-                {scorers.length === 1 ? "hráč" : "hráčů"} s body
-              </p>
-            )}
+            <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
+              {standings.rows.length} týmů · sezóna {standings.season}
+            </p>
+            <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
+              Výhra {pointsRule.win} b · remíza {pointsRule.draw} b · prohra{" "}
+              {pointsRule.loss} b
+            </p>
           </div>
 
-          <Reveal className="mt-8">
-            <ScoringTable />
+          <Reveal className="mt-6">
+            <StandingsTable />
           </Reveal>
 
-          <Reveal className="mt-6">
-            <p className="flex items-start gap-3 text-sm leading-relaxed text-muted">
-              <IconTrophy className="mt-0.5 h-4 w-4 shrink-0 text-pink" />
-              Body = góly + asistence. Při shodě rozhoduje víc vstřelených
-              branek.
-            </p>
+          <Reveal className="mt-10">
+            <Link
+              href="/bodovani"
+              className="cond group inline-flex items-center gap-2 border-b border-line pb-1 text-sm font-semibold uppercase tracking-[0.18em] text-chalk transition-colors hover:border-pink hover:text-pink"
+            >
+              Kanadské bodování hráčů
+              <IconArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
           </Reveal>
         </div>
       </section>
+
+      <SectionDivider from="light" to="dark" variant="wave" />
     </>
   );
 }

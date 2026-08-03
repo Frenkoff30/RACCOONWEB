@@ -7,7 +7,8 @@ import { IconFacebook, IconInstagram, IconMail } from "./Icons";
 const navLinks = [
   { href: "/tym", label: "Soupiska" },
   { href: "/zapasy", label: "Zápasy" },
-  { href: "/tabulka", label: "Tabulka a bodování" },
+  { href: "/tabulka", label: "Tabulka soutěže" },
+  { href: "/bodovani", label: "Kanadské bodování" },
   { href: "/galerie", label: "Galerie" },
   { href: "/obchod", label: "Obchod" },
   { href: "/kontakt", label: "Kontakt" },
@@ -30,7 +31,7 @@ export default function Footer() {
   ].filter(Boolean) as { href: string; label: string; Icon: typeof IconMail }[];
 
   return (
-    <footer className="relative mt-24 overflow-hidden border-t border-line bg-ink-2">
+    <footer className="relative overflow-hidden border-t border-line bg-ink-2">
       <div
         aria-hidden
         className="pointer-events-none absolute -right-16 -top-24 w-[420px] opacity-[0.035] sm:-right-8"

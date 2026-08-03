@@ -3,7 +3,6 @@ import { Anton, Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Spotlight from "@/components/Spotlight";
 import ScrollProgress from "@/components/ScrollProgress";
 import { siteUrl, team } from "@/data/team";
 
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
     template: `%s | ${team.name}`,
   },
   description:
-    "Raccoons Hlinsko – hobby hokejový tým. Soupiska, výsledky, tabulka soutěže, kanadské bodování a galerie.",
+    "Raccoons Hlinsko. Hobby hokejový tým. Soupiska, výsledky, tabulka soutěže, kanadské bodování a galerie.",
   keywords: [
     "hobby hokej",
     "hokejový tým",
@@ -82,7 +81,6 @@ export default function RootLayout({
       <body className="flex min-h-dvh flex-col bg-ink text-chalk antialiased">
         <div className="grain" aria-hidden="true" />
         <ScrollProgress />
-        <Spotlight />
         <Navbar />
         <main id="obsah" className="flex-1">
           {children}

@@ -18,14 +18,14 @@ export const galleryItems: GalleryItem[] = [
   {
     src: "/brand/raccoon-full.png",
     alt: "Logo Raccoons s nápisem",
-    caption: "Klubové logo – hlavní verze",
+    caption: "Klubové logo, hlavní verze",
     span: "tall",
     fit: "contain",
   },
   {
     src: "/brand/raccoon-head.png",
     alt: "Hlava myvala ze znaku Raccoons",
-    caption: "Znak bez nápisu – na dresy a nálepky",
+    caption: "Znak bez nápisu, na dresy a nálepky",
     fit: "contain",
   },
 ];

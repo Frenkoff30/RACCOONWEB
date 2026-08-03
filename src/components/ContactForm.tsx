@@ -10,7 +10,7 @@ const topics = [
 ];
 
 const inputClass =
-  "h-12 w-full rounded-xl border border-line bg-white/[0.03] px-4 text-[0.95rem] text-chalk placeholder:text-muted transition-colors focus:border-pink focus:outline-none";
+  "h-12 w-full rounded-xl border border-line bg-[var(--field-bg,rgb(255_255_255/0.03))] px-4 text-[0.95rem] text-chalk placeholder:text-muted transition-colors focus:border-pink focus:outline-none";
 
 /**
  * Formulář bez backendu – poskládá zprávu a otevře ji v poštovním klientovi.
@@ -39,7 +39,6 @@ export default function ContactForm({ email }: { email: string }) {
     const body = [
       message,
       "",
-      "—",
       `Jméno: ${name}`,
       from ? `E-mail: ${from}` : null,
     ]
@@ -49,7 +48,7 @@ export default function ContactForm({ email }: { email: string }) {
     setError("");
     setSent(true);
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(
-      `Raccoons – ${topicLabel}`,
+      `Raccoons: ${topicLabel}`,
     )}&body=${encodeURIComponent(body)}`;
   }
 
@@ -59,7 +58,7 @@ export default function ContactForm({ email }: { email: string }) {
         <IconMail className="h-7 w-7 text-pink" />
         <p className="display text-2xl text-chalk">Otevřeli jsme ti poštu</p>
         <p className="text-sm leading-relaxed text-muted">
-          Zpráva je předvyplněná – stačí ji odeslat. Kdyby se nic neotevřelo,
+          Zpráva je předvyplněná, stačí ji odeslat. Kdyby se nic neotevřelo,
           napiš nám rovnou na{" "}
           <a
             href={`mailto:${email}`}
@@ -155,7 +154,7 @@ export default function ContactForm({ email }: { email: string }) {
             rows={5}
             required
             placeholder="Napiš, o co jde…"
-            className="w-full rounded-xl border border-line bg-white/[0.03] px-4 py-3 text-[0.95rem] leading-relaxed text-chalk placeholder:text-muted transition-colors focus:border-pink focus:outline-none"
+            className="w-full rounded-xl border border-line bg-[var(--field-bg,rgb(255_255_255/0.03))] px-4 py-3 text-[0.95rem] leading-relaxed text-chalk placeholder:text-muted transition-colors focus:border-pink focus:outline-none"
           />
         </div>
       </div>
@@ -175,7 +174,7 @@ export default function ContactForm({ email }: { email: string }) {
       </button>
 
       <p className="mt-4 text-xs leading-relaxed text-muted">
-        Formulář nikam nic neukládá – jen otevře tvého poštovního klienta
+        Formulář nikam nic neukládá, jen otevře tvého poštovního klienta
         s předvyplněnou zprávou.
       </p>
     </form>
