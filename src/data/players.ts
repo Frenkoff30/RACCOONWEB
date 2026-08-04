@@ -76,7 +76,7 @@ export const players: Player[] = [
   },
   {
     number: 5,
-    firstName: "Honza",
+    firstName: "Jan",
     lastName: "Holas",
     position: "Útočník",
     stats: {
@@ -161,7 +161,7 @@ export const players: Player[] = [
     },
   },
   {
-    number: 23,
+    number: 22,
     firstName: "Marek",
     lastName: "Zvolánek",
     position: "Obránce",
