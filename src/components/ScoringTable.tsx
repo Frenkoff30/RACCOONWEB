@@ -4,25 +4,28 @@ import {
   points,
   scoringTable,
   type Position,
+  type ScoringView,
 } from "@/data/players";
 
 type Props = {
+  /** Který pohled se zobrazuje – konkrétní sezóna nebo součet. */
+  view: ScoringView;
   /** Zobrazit jen prvních N hráčů */
   limit?: number;
   /** Omezit na jednu formaci */
   position?: Position;
 };
 
-export default function ScoringTable({ limit, position }: Props) {
-  const all = scoringTable(position);
+export default function ScoringTable({ view, limit, position }: Props) {
+  const all = scoringTable(view, position);
   const rows = limit ? all.slice(0, limit) : all;
 
   if (rows.length === 0) {
     return (
       <div className="card p-8">
-        <p className="display text-2xl text-chalk">Nikdo na soupisce</p>
+        <p className="display text-2xl text-chalk">Zatím bez statistik</p>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          Přidej hráče v <Code>src/data/players.ts</Code>.
+          V téhle sezóně tu ještě nikdo nemá zapsané body.
         </p>
       </div>
     );
@@ -59,8 +62,8 @@ export default function ScoringTable({ limit, position }: Props) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((p) => {
-              const total = points(p);
+            {rows.map(({ player: p, stat }) => {
+              const total = points(stat);
               return (
                 <tr
                   key={playerKey(p)}
@@ -75,15 +78,9 @@ export default function ScoringTable({ limit, position }: Props) {
                     </span>
                     <span className="text-chalk">{fullName(p)}</span>
                   </th>
-                  <td className="px-2 text-center text-muted">
-                    {p.games ?? 0}
-                  </td>
-                  <td className="px-2 text-center text-muted">
-                    {p.goals ?? 0}
-                  </td>
-                  <td className="px-2 text-center text-muted">
-                    {p.assists ?? 0}
-                  </td>
+                  <td className="px-2 text-center text-muted">{stat.games}</td>
+                  <td className="px-2 text-center text-muted">{stat.goals}</td>
+                  <td className="px-2 text-center text-muted">{stat.assists}</td>
                   <td
                     className={`cond px-2 pr-4 text-center text-base font-bold ${
                       total > 0 ? "text-pink" : "text-muted"
@@ -113,12 +110,4 @@ function positionCaption(position: Position) {
     : position === "Obránce"
       ? "obránci"
       : "útočníci";
-}
-
-function Code({ children }: { children: React.ReactNode }) {
-  return (
-    <code className="rounded bg-[var(--tint,rgb(255_255_255/0.06))] px-1.5 py-0.5 text-chalk">
-      {children}
-    </code>
-  );
 }

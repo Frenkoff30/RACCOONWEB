@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Logo from "./Logo";
-import { hasStats, points, type Player } from "@/data/players";
+import { type Player } from "@/data/players";
 
 const roleLabel: Record<"C" | "A", string> = {
   C: "Kapitán",
@@ -66,13 +66,6 @@ export default function PlayerCard({ player }: { player: Player }) {
           {player.nickname && (
             <span className="text-[0.8125rem] text-muted">
               „{player.nickname}“
-            </span>
-          )}
-          {hasStats(player) && (
-            <span className="cond ml-auto text-[0.8125rem] font-semibold tracking-wide text-muted">
-              <span className="text-chalk">{player.goals ?? 0}</span>+
-              <span className="text-chalk">{player.assists ?? 0}</span> ={" "}
-              <span className="text-pink">{points(player)}</span>
             </span>
           )}
         </div>

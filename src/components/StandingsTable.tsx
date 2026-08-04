@@ -3,12 +3,12 @@ import {
   getStandings,
   hasResultColumns,
   ourTeam,
-  standings,
+  type SeasonStandings,
 } from "@/data/standings";
 
-export default function StandingsTable() {
-  const rows = getStandings();
-  const withResults = hasResultColumns();
+export default function StandingsTable({ data }: { data: SeasonStandings }) {
+  const rows = getStandings(data.rows);
+  const withResults = hasResultColumns(data.rows);
 
   if (rows.length === 0) {
     return (
@@ -32,7 +32,7 @@ export default function StandingsTable() {
           className={`table-compact w-full text-sm ${withResults ? "min-w-[620px]" : "min-w-[340px]"}`}
         >
           <caption className="sr-only">
-            Tabulka soutěže {standings.league}, sezóna {standings.season}
+            Tabulka soutěže {data.league}, sezóna {data.season}
           </caption>
           <thead>
             <tr className="border-b border-line">
@@ -128,8 +128,10 @@ export default function StandingsTable() {
       </div>
 
       <p className="border-t border-line px-4 py-3 text-xs text-muted">
-        {standings.league} · sezóna {standings.season} · aktualizováno{" "}
-        {formatDate(standings.updated)}
+        {data.league} · sezóna {data.season}
+        {data.rankOnly
+          ? " · konečné pořadí"
+          : ` · aktualizováno ${formatDate(data.updated)}`}
       </p>
     </div>
   );

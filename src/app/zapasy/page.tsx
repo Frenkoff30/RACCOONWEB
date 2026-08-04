@@ -13,7 +13,6 @@ import {
   IconHome,
 } from "@/components/Icons";
 import {
-  getSeasonStats,
   nextMatch,
   playedMatches,
   splitDate,
@@ -27,7 +26,6 @@ export const metadata: Metadata = {
 };
 
 export default function ZapasyPage() {
-  const stats = getSeasonStats();
   const later = upcomingMatches.slice(1);
 
   return (
@@ -41,23 +39,9 @@ export default function ZapasyPage() {
         }
       />
 
-      {/* Bilance */}
+      {/* Odkaz na tabulku soutěže */}
       <section className="wrap py-14 sm:py-16">
         <Reveal>
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-6">
-            <Cell label="Zápasů" value={stats.played} />
-            <Cell label="Výher" value={stats.wins} accent />
-            <Cell label="Remíz" value={stats.draws} />
-            <Cell label="Proher" value={stats.losses} />
-            <Cell
-              label="Skóre"
-              value={`${stats.goalsFor}:${stats.goalsAgainst}`}
-            />
-            <Cell label="Úspěšnost" value={`${stats.winRate} %`} accent />
-          </div>
-        </Reveal>
-
-        <Reveal className="mt-4">
           <Link
             href="/tabulka"
             className="cond group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-chalk transition-colors hover:text-pink"
@@ -183,30 +167,5 @@ export default function ZapasyPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Cell({
-  label,
-  value,
-  accent,
-}: {
-  label: string;
-  value: string | number;
-  accent?: boolean;
-}) {
-  return (
-    <div className="bg-ink px-5 py-6">
-      <p
-        className={`display text-4xl sm:text-5xl ${
-          accent ? "text-pink" : "text-chalk"
-        }`}
-      >
-        {value}
-      </p>
-      <p className="cond mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-        {label}
-      </p>
-    </div>
   );
 }

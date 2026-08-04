@@ -16,8 +16,8 @@ export const team = {
 
   /** Odstavec do sekce „O nás“. */
   about:
-    "Vítej na oficiálním webu Mývalů z Hlinska. Hrajeme místní neregistrovanou hokejovou ligu " +
-    "a bereme to smrtelně vážně, tedy aspoň do prvního inkasovaného gólu" +
+    "Vítej na oficiálním webu Mývalů z Hlinska. Tým jsme založili v roce 2023 a hrajeme místní neregistrovanou hokejovou ligu" +
+    ", bereme to smrtelně vážně, tedy aspoň do prvního inkasovaného gólu" +
     " nebo do prvního piva po zápase.",
 
   /** Rok založení – nech `null`, dokud ho nepotvrdíte. TODO */
@@ -28,6 +28,7 @@ export const team = {
   /** TODO: doplnit reálný termín tréninků */
   trainingSlot: "",
 
+  
   contact: {
     /** TODO: doplnit reálný e-mail */
     email: "raccoons@example.com",

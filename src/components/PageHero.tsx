@@ -22,7 +22,7 @@ export default function PageHero({ eyebrow, title }: Props) {
           <span aria-hidden className="h-px w-8 bg-pink/60" />
           {eyebrow}
         </p>
-        <h1 className="display mt-5 text-5xl text-chalk sm:text-6xl lg:text-7xl">
+        <h1 className="display mt-5 text-5xl leading-[1.02] text-chalk sm:text-6xl lg:text-7xl">
           {title}
         </h1>
       </div>

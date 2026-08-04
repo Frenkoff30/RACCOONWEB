@@ -17,7 +17,7 @@ import {
   IconHome,
 } from "@/components/Icons";
 import { playedMatches, splitDate, upcomingMatches } from "@/data/matches";
-import { standings } from "@/data/standings";
+import { CURRENT_STANDINGS_SEASON } from "@/data/standings";
 import { galleryItems } from "@/data/gallery";
 import { team } from "@/data/team";
 
@@ -102,7 +102,7 @@ export default function Home() {
                   Termín zatím nemáme
                 </p>
                 <p className="max-w-md text-muted">
-                  Sezóna {standings.season} teprve začíná. Jakmile bude první
+                  Sezóna {CURRENT_STANDINGS_SEASON} teprve začíná. Jakmile bude první
                   termín, objeví se tady.
                 </p>
               </div>
@@ -180,7 +180,7 @@ export default function Home() {
                 <IconCalendar className="h-6 w-6 text-pink" />
                 <p className="display text-3xl text-chalk">Zatím bez zápasu</p>
                 <p className="max-w-md text-muted">
-                  První výsledek sezóny {standings.season} se tu objeví hned po
+                  První výsledek sezóny {CURRENT_STANDINGS_SEASON} se tu objeví hned po
                   odehraném utkání.
                 </p>
               </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import GalleryGrid from "@/components/GalleryGrid";
-import Reveal from "@/components/Reveal";
 import { IconCamera } from "@/components/Icons";
 import { galleryItems } from "@/data/gallery";
 
@@ -37,26 +36,6 @@ export default function GaleriePage() {
             </p>
           </div>
         )}
-
-        <Reveal className="mt-14">
-          <div className="card card-dashed flex flex-col items-start gap-4 p-8 sm:flex-row sm:items-center">
-            <IconCamera className="h-7 w-7 shrink-0 text-pink" />
-            <div>
-              <p className="display text-2xl text-chalk">Přidat fotky</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                Nakopíruj je do{" "}
-                <code className="rounded bg-[var(--tint,rgb(255_255_255/0.06))] px-1.5 py-0.5 text-chalk">
-                  public/images/galerie/
-                </code>{" "}
-                a přidat řádek v{" "}
-                <code className="rounded bg-[var(--tint,rgb(255_255_255/0.06))] px-1.5 py-0.5 text-chalk">
-                  src/data/gallery.ts
-                </code>
-                .
-              </p>
-            </div>
-          </div>
-        </Reveal>
       </section>
     </>
   );

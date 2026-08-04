@@ -2,22 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import StandingsTable from "@/components/StandingsTable";
+import StandingsBoard from "@/components/StandingsBoard";
 import SectionDivider from "@/components/SectionDivider";
 import { IconArrowRight } from "@/components/Icons";
-import { pointsRule, standings } from "@/data/standings";
 
 export const metadata: Metadata = {
   title: "Tabulka soutěže",
   description:
-    "Tabulka NHL Hlinsko pro sezónu 2026/2027 s postavením týmu Raccoons Hlinsko.",
+    "Tabulka LNH Hlinsko po sezónách s postavením týmu Raccoons Hlinsko.",
 };
 
 export default function TabulkaPage() {
   return (
     <>
       <PageHero
-        eyebrow={`${standings.league} · ${standings.season}`}
+        eyebrow="NHL Hlinsko"
         title={
           <>
             Tabulka <span className="text-pink">soutěže</span>
@@ -29,19 +28,7 @@ export default function TabulkaPage() {
 
       <section className="section-light">
         <div className="wrap py-16 sm:py-20">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-            <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
-              {standings.rows.length} týmů · sezóna {standings.season}
-            </p>
-            <p className="cond text-xs uppercase tracking-[0.16em] text-muted">
-              Výhra {pointsRule.win} b · remíza {pointsRule.draw} b · prohra{" "}
-              {pointsRule.loss} b
-            </p>
-          </div>
-
-          <Reveal className="mt-6">
-            <StandingsTable />
-          </Reveal>
+          <StandingsBoard />
 
           <Reveal className="mt-10">
             <Link
