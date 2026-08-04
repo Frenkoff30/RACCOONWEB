@@ -71,7 +71,6 @@ export default function KontaktPage() {
             Ozvi se <span className="text-pink">nám</span>
           </>
         }
-        lead="Domluva zápasu, merch nebo cokoliv jiného, napiš na e-mail nebo na Instagram."
       />
 
       <SectionDivider from="dark" to="light" />

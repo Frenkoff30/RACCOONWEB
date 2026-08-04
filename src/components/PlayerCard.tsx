@@ -52,10 +52,10 @@ export default function PlayerCard({ player }: { player: Player }) {
 
       {/* Jméno + pozice */}
       <div className="relative">
-        <p className="cond text-sm font-medium uppercase tracking-[0.2em] text-muted">
+        <p className="cond text-xs font-semibold uppercase tracking-[0.22em] text-muted sm:text-sm">
           {player.firstName}
         </p>
-        <h3 className="display mt-1 text-2xl text-chalk sm:text-[1.75rem]">
+        <h3 className="display mt-2 text-2xl leading-[0.95] text-chalk sm:text-[1.75rem]">
           {player.lastName}
         </h3>
 

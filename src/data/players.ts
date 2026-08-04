@@ -84,24 +84,6 @@ export const roster = [...players].sort(
   (a, b) => a.number - b.number || a.lastName.localeCompare(b.lastName, "cs"),
 );
 
-/** Soupiska rozdělená na brankáře, obránce a útočníky. */
-export function rosterByPosition() {
-  const groups = positionOrder
-    .map((position) => ({
-      position,
-      players: roster.filter((p) => p.position === position),
-    }))
-    .filter((g) => g.players.length > 0);
-
-  const rest = roster.filter((p) => !p.position);
-  return { groups, rest };
-}
-
-/** Má vůbec někdo zapsané body? Podle toho se ukáže poznámka „zatím 0“. */
-export function hasAnyStats() {
-  return players.some(hasStats);
-}
-
 /**
  * Kanadské bodování. Vypisuje celou soupisku (i s nulami), aby byla tabulka
  * připravená na začátek sezóny. Volitelně jen jednu formaci.

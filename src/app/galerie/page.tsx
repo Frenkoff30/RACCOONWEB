@@ -21,20 +21,6 @@ export default function GaleriePage() {
             Fotky <span className="text-pink">z ledu</span>
           </>
         }
-        lead="Zápasy, dresy a kabina. Klikni na fotku pro zvětšení."
-        aside={
-          <div className="card flex items-center gap-5 px-6 py-5">
-            <IconCamera className="h-7 w-7 text-pink" />
-            <div>
-              <p className="display text-4xl leading-none text-chalk">
-                {galleryItems.length}
-              </p>
-              <p className="cond mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                Položek v galerii
-              </p>
-            </div>
-          </div>
-        }
       />
 
       <section className="wrap py-16 sm:py-20">

@@ -5,17 +5,15 @@ import Reveal from "@/components/Reveal";
 import StandingsTable from "@/components/StandingsTable";
 import SectionDivider from "@/components/SectionDivider";
 import { IconArrowRight } from "@/components/Icons";
-import { ourPosition, pointsRule, standings } from "@/data/standings";
+import { pointsRule, standings } from "@/data/standings";
 
 export const metadata: Metadata = {
   title: "Tabulka soutěže",
   description:
-    "Tabulka hobby ligy pro sezónu 2026/2027 s postavením týmu Raccoons Hlinsko.",
+    "Tabulka NHL Hlinsko pro sezónu 2026/2027 s postavením týmu Raccoons Hlinsko.",
 };
 
 export default function TabulkaPage() {
-  const us = ourPosition();
-
   return (
     <>
       <PageHero
@@ -24,27 +22,6 @@ export default function TabulkaPage() {
           <>
             Tabulka <span className="text-pink">soutěže</span>
           </>
-        }
-        lead="Postavení všech týmů v soutěži. Aktualizujeme po každém odehraném kole."
-        aside={
-          us ? (
-            <div className="card px-6 py-5">
-              <p className="cond text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                Naše místo
-              </p>
-              <div className="mt-3 flex items-end gap-4">
-                <p className="display text-5xl leading-none text-pink">
-                  {us.rank}.
-                </p>
-                <p className="cond pb-1 text-sm text-muted">
-                  z {standings.rows.length} týmů
-                  <span className="mt-0.5 block text-chalk">
-                    {us.points ?? 0} bodů
-                  </span>
-                </p>
-              </div>
-            </div>
-          ) : undefined
         }
       />
 

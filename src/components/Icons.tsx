@@ -54,14 +54,6 @@ export function IconArrowUpRight(props: IconProps) {
   );
 }
 
-export function IconArrowDown(props: IconProps) {
-  return (
-    <Base {...props}>
-      <path d="M12 5v14M19 12l-7 7-7-7" />
-    </Base>
-  );
-}
-
 export function IconChevronLeft(props: IconProps) {
   return (
     <Base {...props}>
@@ -148,36 +140,6 @@ export function IconFacebook(props: IconProps) {
   );
 }
 
-export function IconTrophy(props: IconProps) {
-  return (
-    <Base {...props}>
-      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16" />
-      <path d="M10 14.7V17c0 .6-.5 1-1 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8" />
-      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-    </Base>
-  );
-}
-
-export function IconUsers(props: IconProps) {
-  return (
-    <Base {...props}>
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" />
-    </Base>
-  );
-}
-
-export function IconTarget(props: IconProps) {
-  return (
-    <Base {...props}>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="5" />
-      <circle cx="12" cy="12" r="1.4" />
-    </Base>
-  );
-}
-
 export function IconCamera(props: IconProps) {
   return (
     <Base {...props}>
@@ -213,28 +175,4 @@ export function IconPlus(props: IconProps) {
   );
 }
 
-/** Puk – vlastní tvar, v Lucide není. */
-export function IconPuck(props: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-      {...props}
-    >
-      <path d="M12 5c4.4 0 8 1.5 8 3.4v7.2c0 1.9-3.6 3.4-8 3.4s-8-1.5-8-3.4V8.4C4 6.5 7.6 5 12 5Zm0 1.8c-3.5 0-6.2 1-6.2 1.6S8.5 10 12 10s6.2-1 6.2-1.6-2.7-1.6-6.2-1.6Z" />
-    </svg>
-  );
-}
-
-/** Zkřížené hokejky */
-export function IconSticks(props: IconProps) {
-  return (
-    <Base {...props}>
-      <path d="M4 3.5 15.5 15a3 3 0 0 0 2.2.9H21" />
-      <path d="M20 3.5 8.5 15a3 3 0 0 1-2.2.9H3" />
-    </Base>
-  );
-}
 

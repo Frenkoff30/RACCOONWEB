@@ -6,7 +6,7 @@ import {
   standings,
 } from "@/data/standings";
 
-export default function StandingsTable({ compact }: { compact?: boolean }) {
+export default function StandingsTable() {
   const rows = getStandings();
   const withResults = hasResultColumns();
 
@@ -127,12 +127,10 @@ export default function StandingsTable({ compact }: { compact?: boolean }) {
         </table>
       </div>
 
-      {!compact && (
-        <p className="border-t border-line px-4 py-3 text-xs text-muted">
-          {standings.league} · sezóna {standings.season} · aktualizováno{" "}
-          {formatDate(standings.updated)}
-        </p>
-      )}
+      <p className="border-t border-line px-4 py-3 text-xs text-muted">
+        {standings.league} · sezóna {standings.season} · aktualizováno{" "}
+        {formatDate(standings.updated)}
+      </p>
     </div>
   );
 }

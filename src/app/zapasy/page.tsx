@@ -3,7 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import SectionDivider from "@/components/SectionDivider";
 import Reveal from "@/components/Reveal";
-import MatchRow, { FormStrip, MONTHS_SHORT } from "@/components/MatchRow";
+import MatchRow, { MONTHS_SHORT } from "@/components/MatchRow";
 import NextMatchCard from "@/components/NextMatchCard";
 import {
   IconArrowRight,
@@ -13,7 +13,6 @@ import {
   IconHome,
 } from "@/components/Icons";
 import {
-  getForm,
   getSeasonStats,
   nextMatch,
   playedMatches,
@@ -29,7 +28,6 @@ export const metadata: Metadata = {
 
 export default function ZapasyPage() {
   const stats = getSeasonStats();
-  const form = getForm(5);
   const later = upcomingMatches.slice(1);
 
   return (
@@ -40,19 +38,6 @@ export default function ZapasyPage() {
           <>
             Program a <span className="text-pink">výsledky</span>
           </>
-        }
-        lead="Nadcházející termíny i odehraná utkání se skóre a střelci."
-        aside={
-          form.length > 0 ? (
-            <div className="card px-6 py-5">
-              <p className="cond text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                Forma · poslední zápasy
-              </p>
-              <div className="mt-3">
-                <FormStrip form={form} />
-              </div>
-            </div>
-          ) : undefined
         }
       />
 
@@ -84,7 +69,7 @@ export default function ZapasyPage() {
       </section>
 
       {/* Nadcházející */}
-      <section className="border-y border-line bg-ink-2 py-16 sm:py-20">
+      <section className="py-16 sm:py-20">
         <div className="wrap">
           <h2 className="display text-3xl text-chalk sm:text-4xl">
             Nadcházející <span className="text-pink">zápasy</span>

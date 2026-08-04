@@ -20,7 +20,7 @@ export const ourTeam = "Raccoons";
 
 export const standings = {
   /** TODO: doplnit oficiální název soutěže */
-  league: "Hobby liga",
+  league: "NHL Hlinsko",
   season: "2026/2027",
   /** Datum poslední aktualizace ve tvaru YYYY-MM-DD */
   updated: "2026-08-03",
@@ -223,6 +223,3 @@ export function getStandings(): RankedRow[] {
   });
 }
 
-export function ourPosition(): RankedRow | undefined {
-  return getStandings().find((r) => r.team === ourTeam);
-}

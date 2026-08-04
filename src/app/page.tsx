@@ -38,27 +38,48 @@ export default function Home() {
       {/* ---------------------------------------------------------- */}
       <section className="section-light">
         <div className="wrap overflow-hidden py-24 sm:py-32">
-          <Reveal className="max-w-2xl">
-            <h2 className="display text-4xl text-chalk sm:text-5xl lg:text-[3.5rem]">
-              Hobby hokej v <span className="text-pink">Hlinsku</span>
-            </h2>
-            <BrandBars className="mt-6" />
-            <p className="mt-7 text-[1.05rem] leading-relaxed text-muted">
-              {team.about}
-            </p>
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+            <Reveal className="max-w-2xl">
+              <h2 className="display text-4xl text-chalk sm:text-5xl lg:text-[3.5rem]">
+                Hobby hokej v <span className="text-pink">Hlinsku</span>
+              </h2>
+              <BrandBars className="mt-6" />
+              <p className="mt-7 text-[1.05rem] leading-relaxed text-muted">
+                {team.about}
+              </p>
 
-            {team.social.instagram && (
-              <a
-                href={team.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cond group mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-chalk transition-colors hover:text-pink"
-              >
-                {team.social.instagramHandle}
-                <IconArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-            )}
-          </Reveal>
+              {team.social.instagram && (
+                <a
+                  href={team.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cond group mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-chalk transition-colors hover:text-pink"
+                >
+                  {team.social.instagramHandle}
+                  <IconArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              )}
+            </Reveal>
+
+            <Reveal delay={80}>
+              <div className="relative mx-auto w-full max-w-[380px]">
+                <div
+                  aria-hidden
+                  className="absolute -inset-3 rounded-[1.75rem] bg-ink/5"
+                />
+                <div className="relative overflow-hidden rounded-2xl border border-line shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
+                  <Image
+                    src="/raccooncartoonn.png"
+                    alt="Maskot týmu Raccoons v dresu na ledě"
+                    width={1024}
+                    height={1536}
+                    sizes="(max-width: 1024px) 380px, 40vw"
+                    className="h-auto w-full"
+                  />
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
@@ -143,7 +164,7 @@ export default function Home() {
       {/* ---------------------------------------------------------- */}
       {/* Poslední zápasy                                             */}
       {/* ---------------------------------------------------------- */}
-      <section className="border-y border-line bg-ink-2 py-24 sm:py-32">
+      <section className="py-24 sm:py-32">
         <div className="wrap">
           <SectionHead
             title={

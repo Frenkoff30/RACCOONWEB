@@ -45,17 +45,6 @@ export function ResultChip({ result }: { result: Result }) {
   );
 }
 
-export function FormStrip({ form }: { form: Result[] }) {
-  if (!form.length) return null;
-  return (
-    <div className="flex items-center gap-1.5">
-      {form.map((r, i) => (
-        <ResultChip key={i} result={r} />
-      ))}
-    </div>
-  );
-}
-
 export default function MatchRow({ match }: { match: PlayedMatch }) {
   const { day, month, year } = splitDate(match.date);
   const result = resultOf(match);

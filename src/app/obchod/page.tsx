@@ -8,7 +8,6 @@ import {
   IconArrowUpRight,
   IconInstagram,
   IconMail,
-  IconPuck,
 } from "@/components/Icons";
 import { merchItems, plannedCategories } from "@/data/merch";
 import { team } from "@/data/team";
@@ -30,24 +29,6 @@ export default function ObchodPage() {
           <>
             Klubový <span className="text-pink">merch</span>
           </>
-        }
-        lead={
-          hasItems
-            ? "Oblečení a doplňky s myvalem. Objednávky řešíme e-mailem nebo na Instagramu."
-            : "Chystáme mikiny, trika, čepice a samolepky s myvalem. Zatím tu nic ke koupi není, jakmile bude, objeví se to přesně sem."
-        }
-        aside={
-          <div className="card flex items-center gap-5 px-6 py-5">
-            <IconPuck className="h-7 w-7 text-pink" />
-            <div>
-              <p className="display text-4xl leading-none text-chalk">
-                {hasItems ? merchItems.length : 0}
-              </p>
-              <p className="cond mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                {hasItems ? "Položek v nabídce" : "Nabídka se chystá"}
-              </p>
-            </div>
-          </div>
         }
       />
 

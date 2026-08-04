@@ -105,11 +105,6 @@ export function getSeasonStats() {
   };
 }
 
-/** Forma – posledních N výsledků od nejnovějšího. */
-export function getForm(count = 5): Result[] {
-  return playedMatches.slice(0, count).map(resultOf);
-}
-
 /* ------------------------------- formát -------------------------------- */
 
 const dateFmt = new Intl.DateTimeFormat("cs-CZ", {
