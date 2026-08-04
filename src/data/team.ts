@@ -8,17 +8,17 @@ export const team = {
   name: "Raccoons",
   fullName: "Raccoons Hlinsko",
   legalName: "Raccoons Hlinsko",
-  tagline: "Hobby hokejový tým",
-  city: "Hlinsko",
+  tagline: "",
+  city: "",
 
   /** Jedna věta do patičky a pod nadpis. */
-  claim: "Hobby hokejový tým z Hlinska.",
+  claim: " Hokejový tým z Hlinska.",
 
   /** Odstavec do sekce „O nás“. */
   about:
-    "Hrajeme hobby hokej v Hlinsku. Scházíme se jednou týdně na tréninku " +
-    "a k tomu odehrajeme zápasy proti okolním týmům. Na webu najdeš soupisku, " +
-    "výsledky, tabulku a kanadské bodování. Všechno průběžně doplňujeme.",
+    "Vítej na oficiálním webu Mývalů z Hlinska. Hrajeme místní neregistrovanou hokejovou ligu " +
+    "a bereme to smrtelně vážně, tedy aspoň do prvního inkasovaného gólu" +
+    " nebo do prvního piva po zápase.",
 
   /** Rok založení – nech `null`, dokud ho nepotvrdíte. TODO */
   founded: null as number | null,
@@ -26,7 +26,7 @@ export const team = {
   /** TODO: doplnit přesný název stadionu */
   rink: "Zimní stadion Hlinsko",
   /** TODO: doplnit reálný termín tréninků */
-  trainingSlot: "Jednou týdně",
+  trainingSlot: "",
 
   contact: {
     /** TODO: doplnit reálný e-mail */

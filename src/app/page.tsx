@@ -7,7 +7,7 @@ import SectionHead from "@/components/SectionHead";
 import Button from "@/components/Button";
 import NextMatchCard from "@/components/NextMatchCard";
 import MatchRow, { MONTHS_SHORT } from "@/components/MatchRow";
-import SectionDivider, { BrandBars } from "@/components/SectionDivider";
+import SectionDivider from "@/components/SectionDivider";
 import {
   IconArrowRight,
   IconArrowUpRight,
@@ -41,9 +41,8 @@ export default function Home() {
           <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <Reveal className="max-w-2xl">
               <h2 className="display text-4xl text-chalk sm:text-5xl lg:text-[3.5rem]">
-                Hobby hokej v <span className="text-pink">Hlinsku</span>
+                RACCOONS<span className="text-pink"> Hlinsko</span>
               </h2>
-              <BrandBars className="mt-6" />
               <p className="mt-7 text-[1.05rem] leading-relaxed text-muted">
                 {team.about}
               </p>
@@ -62,22 +61,14 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={80}>
-              <div className="relative mx-auto w-full max-w-[380px]">
-                <div
-                  aria-hidden
-                  className="absolute -inset-3 rounded-[1.75rem] bg-ink/5"
-                />
-                <div className="relative overflow-hidden rounded-2xl border border-line shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-                  <Image
-                    src="/raccooncartoonn.png"
-                    alt="Maskot týmu Raccoons v dresu na ledě"
-                    width={1024}
-                    height={1536}
-                    sizes="(max-width: 1024px) 380px, 40vw"
-                    className="h-auto w-full"
-                  />
-                </div>
-              </div>
+              <Image
+                src="/raccooncartoonn.png"
+                alt="Maskot týmu Raccoons v dresu na ledě"
+                width={1024}
+                height={1536}
+                sizes="(max-width: 1024px) 440px, 44vw"
+                className="mx-auto h-auto w-full max-w-[440px]"
+              />
             </Reveal>
           </div>
         </div>
@@ -258,8 +249,7 @@ export default function Home() {
                 <h2 className="display text-4xl text-chalk sm:text-5xl lg:text-[3.5rem]">
                   Klubový <span className="text-pink">merch</span>
                 </h2>
-                <BrandBars className="mt-6" />
-                <p className="mt-6 max-w-lg text-muted">
+                  <p className="mt-6 max-w-lg text-muted">
                   Mikiny, trika, čepice a samolepky s myvalem. Zatím to
                   chystáme, mrkni, co bude v nabídce.
                 </p>

@@ -71,3 +71,4 @@ export function BrandBars({ className = "" }: { className?: string }) {
     </span>
   );
 }
+

@@ -22,12 +22,7 @@ export default function Hero() {
 
           {/* Text */}
           <div className="order-2 lg:order-1">
-            <p className="eyebrow flex items-center gap-3 text-pink">
-              <span aria-hidden className="h-px w-8 bg-pink/60" />
-              {team.tagline} · {team.city}
-            </p>
-
-            <h1 className="mt-6">
+            <h1>
               <span className="display block text-[clamp(3.5rem,11vw,8.5rem)] text-chalk">
                 Raccoons
               </span>

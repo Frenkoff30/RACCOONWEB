@@ -29,7 +29,7 @@ export const players: Player[] = [
   { number: 8, firstName: "Michal", lastName: "Horáček",position: "Útočník" },
   { number: 9, firstName: "Vítek", lastName: "Myška",position: "Brankář" },
   { number: 11, firstName: "Vojtěch", lastName: "Benc",position:"Útočník", nickname: "Bencík"},
-  { number: 12, firstName: "Honza", lastName: "Kvapil",position:  "Obránce", nickname:"Kvápa"},
+  { number: 12, firstName: "Jan", lastName: "Kvapil",position:  "Obránce", nickname:"Kvápa"},
   { number: 19, firstName: "Matěj", lastName: "Švanda",position: "Útočník",nickname: "Švadů" },
   { number: 21, firstName: "David", lastName: "Fousek",position: "Obránce" },
   { number: 23, firstName: "Marek", lastName: "Zvolánek",position: "Obránce",nickname: "Zvolda" },
@@ -44,6 +44,7 @@ export const players: Player[] = [
   { number: 87, firstName: "Ladislav", lastName: "Jandík",position: "Útočník",nickname: "Ládík" },
   { number: 89, firstName: "Petr", lastName: "Sodomka",position: "Útočník",nickname: "Sody" },
   { number: 99, firstName: "Patrik", lastName: "Sotona",position: "Útočník",nickname: "Soty" },
+  {number:10, firstName: "Matouš", lastName:"Borna",position:"Útočník",}
 ];
 
 /* ---------------------------- odvozené věci ---------------------------- */
