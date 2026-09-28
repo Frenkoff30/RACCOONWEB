@@ -87,9 +87,11 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
                 className="absolute bottom-4 left-4 right-4 flex translate-y-2 items-center gap-2 text-left opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
               >
                 <IconPlus className="h-4 w-4 shrink-0 text-pink" />
-                <span className="cond truncate text-xs font-semibold uppercase tracking-[0.14em] text-chalk">
-                  {item.caption ?? item.alt}
-                </span>
+                {item.caption && (
+                  <span className="cond truncate text-xs font-semibold uppercase tracking-[0.14em] text-chalk">
+                    {item.caption}
+                  </span>
+                )}
               </span>
             </button>
           </Reveal>
@@ -137,10 +139,12 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
             </button>
 
             <div className="min-w-0 text-center">
-              <p className="cond truncate text-sm uppercase tracking-[0.14em] text-chalk">
-                {active.caption ?? active.alt}
-              </p>
-              <p className="cond mt-1 text-xs tracking-[0.2em] text-muted">
+              {active.caption && (
+                <p className="cond truncate text-sm uppercase tracking-[0.14em] text-chalk">
+                  {active.caption}
+                </p>
+              )}
+              <p className="cond text-xs tracking-[0.2em] text-muted">
                 {(openIndex ?? 0) + 1} / {items.length}
               </p>
             </div>

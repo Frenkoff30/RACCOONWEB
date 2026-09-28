@@ -225,10 +225,12 @@ export default function Home() {
                       }`}
                     />
                     <span className="absolute bottom-4 left-5 right-5 flex items-center justify-between gap-3">
-                      <span className="cond truncate text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-                        {item.caption ?? item.alt}
-                      </span>
-                      <IconArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-colors group-hover:text-pink" />
+                      {item.caption && (
+                        <span className="cond truncate text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                          {item.caption}
+                        </span>
+                      )}
+                      <IconArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-muted transition-colors group-hover:text-pink" />
                     </span>
                   </Link>
                 </Reveal>

@@ -123,9 +123,20 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-line pt-7">
+        <div className="mt-14 flex flex-col gap-3 border-t border-line pt-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-muted">
             © {year} {team.legalName}
+          </p>
+          <p className="text-sm text-muted">
+            Web vytvořilo{" "}
+            <a
+              href="https://www.webostudio.cz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cond font-semibold uppercase tracking-[0.12em] text-chalk transition-colors hover:text-pink"
+            >
+              Webo studio
+            </a>
           </p>
         </div>
       </div>

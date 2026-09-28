@@ -69,6 +69,14 @@ export default function Navbar() {
         >
           <Link
             href="/"
+            onClick={(e) => {
+              setOpen(false);
+              // Na domovské stránce Next.js nikam nenaviguje, tak vyjedeme nahoru sami
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
             className="group flex items-center gap-3"
             aria-label="Raccoons, domovská stránka"
           >

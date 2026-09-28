@@ -20,7 +20,6 @@ export type Match = {
 
 /* -------------------------------------------------------------------------
    ZÁPASY – SEZÓNA 2026/2027
-   Zatím prázdné, čeká se na první termíny.
 
    Bez `scoreUs` / `scoreThem` se zápas bere jako nadcházející a objeví se
    v sekci „Nejbližší zápas“. Se skóre se z něj stane odehraný zápas a rovnou
@@ -41,7 +40,22 @@ export type Match = {
      note: "Poznámka do zápisu.",
    },
    ------------------------------------------------------------------------- */
-export const matches: Match[] = [];
+export const matches: Match[] = [
+  {
+    date: "2026-10-02",
+    time: "19:45",
+    opponent: "Wolves Krouna",
+    home: true,
+    venue: "Zimní stadion Hlinsko",
+  },
+  {
+    date: "2026-10-11",
+    time: "19:45",
+    opponent: "Štěpánov",
+    home: true,
+    venue: "Zimní stadion Hlinsko",
+  },
+];
 
 
 /* ---------------------------- odvozené věci ---------------------------- */

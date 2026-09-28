@@ -32,9 +32,10 @@ export default function NextMatchCard({ match }: { match: Match }) {
         </p>
 
         <h3 className="display mt-2 text-4xl text-chalk sm:text-5xl lg:text-6xl">
-          Raccoons <span className="text-pink">vs</span>{" "}
-          <br className="hidden sm:block" />
-          {match.opponent}
+          <span className="block">
+            Raccoons <span className="text-pink">vs</span>
+          </span>
+          <span className="mt-3 block sm:mt-4">{match.opponent}</span>
         </h3>
 
         <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
