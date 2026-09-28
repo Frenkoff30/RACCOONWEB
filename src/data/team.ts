@@ -47,4 +47,9 @@ export const team = {
   ticker: ["Go Raccoons Go"],
 };
 
-export const siteUrl = "https://raccoons.cz"; // TODO: doplnit reálnou doménu
+/**
+ * Ostrá doména webu. Musí sedět přesně na variantu, která běží na Vercelu
+ * (včetně www), jinak se do stránek vygenerují špatné kanonické odkazy
+ * a Google začne indexovat *.vercel.app místo téhle adresy.
+ */
+export const siteUrl = "https://www.raccoonshlinsko.cz";

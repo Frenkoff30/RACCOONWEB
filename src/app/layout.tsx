@@ -29,8 +29,14 @@ const barlow = Barlow({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  /**
+   * "./" se přeloží na aktuální cestu nad `metadataBase`, takže každá stránka
+   * dostane kanonický odkaz na ostrou doménu. Bez toho Google indexuje
+   * náhledovou adresu *.vercel.app, protože ji považuje za samostatný web.
+   */
+  alternates: { canonical: "./" },
   title: {
-    default: `${team.name} | ${team.tagline}`,
+    default: team.tagline ? `${team.name} | ${team.tagline}` : team.fullName,
     template: `%s | ${team.name}`,
   },
   description:
@@ -47,7 +53,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "cs_CZ",
     siteName: team.name,
-    title: `${team.name} | ${team.tagline}`,
+    url: "./",
+    title: team.tagline ? `${team.name} | ${team.tagline}` : team.fullName,
     description: team.claim,
     images: [
       {
