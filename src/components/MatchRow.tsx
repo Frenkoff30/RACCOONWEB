@@ -80,7 +80,7 @@ export default function MatchRow({ match }: { match: PlayedMatch }) {
               <span className="text-pink">· po prodloužení</span>
             )}
           </p>
-          <h3 className="display mt-1.5 text-xl text-chalk sm:text-2xl">
+          <h3 className="display mt-1.5 text-xl leading-[1.2] text-chalk sm:text-2xl">
             Raccoons <span className="text-muted">vs</span> {match.opponent}
           </h3>
         </div>

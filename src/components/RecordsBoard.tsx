@@ -138,7 +138,7 @@ export default function RecordsBoard() {
           {seasons.length > 0 ? (
             <Reveal className="mt-8">
               <div className="card overflow-x-auto">
-                <table className="w-full min-w-[34rem] border-collapse text-sm">
+                <table className="table-compact w-full min-w-[320px] border-collapse text-sm">
                   <caption className="sr-only">
                     Nejlepší sezóny jednotlivců podle kanadského bodování
                   </caption>
@@ -152,7 +152,7 @@ export default function RecordsBoard() {
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-3 text-left font-normal"
+                        className="hidden px-2 py-3 text-left font-normal sm:table-cell"
                       >
                         Sezóna
                       </th>
@@ -196,8 +196,13 @@ export default function RecordsBoard() {
                             {row.player.number}
                           </span>
                           {fullName(row.player)}
+                          {/* Na úzkém displeji se sloupec Sezóna schová sem,
+                              ať na mobilu zbyde místo na góly a body. */}
+                          <span className="cond block text-xs text-muted sm:hidden">
+                            {row.season}
+                          </span>
                         </th>
-                        <td className="cond px-2 py-3 text-muted">
+                        <td className="cond hidden px-2 py-3 text-muted sm:table-cell">
                           {row.season}
                         </td>
                         <td className="px-2 py-3 text-right text-muted">

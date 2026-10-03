@@ -106,12 +106,28 @@
 /* ------------------------------------------------------------------ */
 /*  TYPOGRAFIE                                                         */
 /* ------------------------------------------------------------------ */
-.display {
-  font-family: var(--font-anton), var(--font-barlow-condensed), sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.86;
-  letter-spacing: -0.005em;
+/*
+ * Nadpisy mají schválně natěsno řádkování (0.86).
+ *
+ * Dvě věci, na kterých to stojí:
+ *  1. Třída patří do vrstvy `components`. Mimo vrstvy by přebíjela Tailwind
+ *     utility a `leading-*` na nadpisu by nefungovalo – víceřádkový nadpis
+ *     se pak na mobilu slepil dohromady.
+ *  2. Kromě `line-height` se nastavuje i `--tw-leading`, ze které čtou
+ *     velikosti `text-*`. Bez toho by si každé `text-xl` přitáhlo vlastní
+ *     rozpálené řádkování a těsné nadpisy by se rozsypaly.
+ *
+ * Výsledek: výchozí je 0.86 a `leading-*` ho kdykoli přebije.
+ */
+@layer components {
+  .display {
+    font-family: var(--font-anton), var(--font-barlow-condensed), sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    --tw-leading: 0.86;
+    line-height: 0.86;
+    letter-spacing: -0.005em;
+  }
 }
 
 /*

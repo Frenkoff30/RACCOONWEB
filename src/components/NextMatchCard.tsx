@@ -31,7 +31,7 @@ export default function NextMatchCard({ match }: { match: Match }) {
           {formatWeekday(match.date)}
         </p>
 
-        <h3 className="display mt-2 text-4xl text-chalk sm:text-5xl lg:text-6xl">
+        <h3 className="display mt-2 text-4xl leading-[1.2] text-chalk sm:text-5xl lg:text-6xl">
           <span className="block">
             Raccoons <span className="text-pink">vs</span>
           </span>
