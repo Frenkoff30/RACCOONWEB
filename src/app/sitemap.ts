@@ -4,6 +4,7 @@ import { siteUrl } from "@/data/team";
 /** Všechny veřejné stránky webu. Novou stránku sem přidej i sem. */
 const routes = [
   { path: "", priority: 1 },
+  { path: "/aktuality", priority: 0.9 },
   { path: "/tym", priority: 0.8 },
   { path: "/zapasy", priority: 0.8 },
   { path: "/tabulka", priority: 0.7 },

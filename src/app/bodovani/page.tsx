@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import ScoringBoard from "@/components/ScoringBoard";
+import RecordsBoard from "@/components/RecordsBoard";
 import SectionDivider from "@/components/SectionDivider";
 
 export const metadata: Metadata = {
-  title: "Kanadské bodování",
+  title: "Bodování a rekordy",
   description:
-    "Kanadské bodování hráčů Raccoons Hlinsko po sezónách i dohromady – brankáři, obránci a útočníci.",
+    "Kanadské bodování hráčů Raccoons Hlinsko po sezónách i dohromady, klubové rekordy, nejlepší sezóny jednotlivců a umístění týmu po ročnících.",
 };
 
 export default function BodovaniPage() {
@@ -16,7 +17,7 @@ export default function BodovaniPage() {
         eyebrow="Statistiky"
         title={
           <>
-            Kanadské <span className="text-pink">bodování</span>
+            Bodování a <span className="text-pink">rekordy</span>
           </>
         }
       />
@@ -30,6 +31,8 @@ export default function BodovaniPage() {
       </section>
 
       <SectionDivider from="light" to="dark" variant="wave" />
+
+      <RecordsBoard />
     </>
   );
 }

@@ -19,8 +19,9 @@ Veškerý obsah je v `src/data/` – žádné komponenty upravovat nemusíš.
 | Soubor | Co v něm je |
 | --- | --- |
 | `src/data/team.ts` | Název, claim, text „O nás“, e-mail, Instagram, stadion, text do běžícího pruhu. Řádky s `TODO` čekají na reálné údaje. |
-| `src/data/players.ts` | Soupiska – čísla, jména, pozice, role (C/A), přezdívky, fotky, góly a asistence. |
-| `src/data/matches.ts` | Zápasy. Bez `scoreUs` / `scoreThem` se zápas bere jako **nadcházející**, se skóre jako odehraný. |
+| `src/data/players.ts` | Soupiska – čísla, jména, pozice, role (C/A), přezdívky, fotky a **archivní** sezóny. |
+| `src/data/matches.ts` | Zápasy. Bez `scoreUs` / `scoreThem` se zápas bere jako **nadcházející**, se skóre jako odehraný. Tady se zapisují i góly a asistence. |
+| `src/data/news.ts` | Aktuality – krátké zprávy na `/aktuality` a na úvodce. |
 | `src/data/standings.ts` | Tabulka soutěže – pořadí určuje pořadí v poli, `previous` je umístění z minulého kola. |
 | `src/data/merch.ts` | Obchod. Prázdné pole = stránka ukáže „připravujeme“. |
 | `src/data/gallery.ts` | Fotky v galerii. |
@@ -37,11 +38,39 @@ Sloupce Z / V / R / P / skóre / body jsou nepovinné. Objeví se teprve tehdy,
 až je vyplníš aspoň u jednoho týmu – body se spočítají podle `pointsRule`
 (teď 3 / 1 / 0). Na začátku sezóny jsou všude nuly.
 
-### Kanadské bodování
+### Zápis zápasu a bodování
 
-Vyplň hráčům `goals`, `assists` a případně `games` v `players.ts`. Na stránce
-`/bodovani` je rozdělené na brankáře, obránce a útočníky; tabulky vypisují
-celou soupisku včetně nul, takže jsou na začátku sezóny připravené.
+**Po zápase se edituje jediné místo – `matches.ts`.** Ke skóre se dopíše,
+kdo bodoval:
+
+```ts
+{
+  date: "2026-10-02",
+  opponent: "Wolves Krouna",
+  home: true,
+  scoreUs: 5,
+  scoreThem: 4,
+  scoring: {
+    Hamák: [1, 2],   // [góly, asistence]
+    Němec: [1, 1],
+  },
+  lineup: ["Fousek", "Kvapil"],   // kdo nastoupil bez bodu
+}
+```
+
+Z toho se dopočítá všechno ostatní: střelci a nahrávači pod zápasem, kanadské
+bodování, počet odehraných zápasů i klubové rekordy. Do `players.ts` se tedy
+po zápase **nic nepřepisuje**.
+
+Příjmení musí sedět na soupisku. Při překlepu build spadne a napíše, které
+jméno nezná – radši chyba než tiše ztracené góly.
+
+Hráče, který hraje aktuální sezónu, poznáš podle `active: true` v `players.ts`.
+Objeví se díky tomu v tabulkách i s nulami. Hosté `active` nemají, takže
+aktuální sezónu nezaplevelí.
+
+Pole `stats` v `players.ts` je **jen archiv** sezón, které zápas po zápase
+zapsané nemáme (2023/2024 až 2025/2026). Aktuální sezóna se tam nepíše.
 
 ### Soupiska
 
@@ -64,6 +93,14 @@ se řeší přes e-mail nebo Instagram.
 
 Karta hráče bez fotky vypadá záměrně dobře i tak – místo portrétu se ukáže
 číslo dresu a znak myvala.
+
+### Nadpisy a diakritika
+
+Třída `.display` má schválně natěsno řádkování (0.86). Když se takový nadpis
+ořezává (`truncate`, tedy `overflow: hidden`), useklo by to háčky a čárky nad
+velkými písmeny – z „MIKULÁŠ NĚMEC“ by zbylo „MIKULAS NEMEC“. Pravidlo
+`.display.truncate` v `globals.css` proto ořezávanému nadpisu řádek povolí.
+Kdybys psal nový nadpis s ořezáním, nic dělat nemusíš, platí to samo.
 
 ### Světlé a tmavé sekce
 
@@ -88,16 +125,34 @@ Logo je v `public/brand/` jako SVG (z originálních křivek) i PNG.
 Zdrojová PDF od grafika zůstávají v `brand-source/` mimo `public`, aby se
 zbytečně neposílala do prohlížeče.
 
-`public/og.png` je náhled pro sdílení na sítích, `src/app/icon.png` favicona.
-Oba se generují z loga – když se logo změní, přegeneruj je taky.
+`src/app/icon.png` je favicona, generuje se z loga – když se logo změní,
+přegeneruj ji taky.
+
+### Náhledy pro sdílení
+
+Obrázek, co se ukáže při hození odkazu do chatu nebo na sítě, se **generuje
+z kódu** – soubory `opengraph-image.tsx` ve složkách stránek, společná šablona
+v `src/lib/og.tsx`. Drží se tedy aktuálních dat: úvodka ukazuje poslední
+výsledek, `/bodovani` vedoucího kanadského bodování, `/aktuality` poslední
+zprávu. Není potřeba nic překreslovat po zápase.
+
+Fonty se čtou z `assets/` (ne ze sítě), aby build nezávisel na dostupnosti
+Google Fonts. Stránka bez vlastního `opengraph-image.tsx` zdědí ten z kořene.
+
+Pozor: kdyby se do `metadata.openGraph` v `layout.tsx` vrátilo `images`
+natvrdo, přebilo by to všechny generované náhledy.
 
 ## Stránky
 
-- `/` – hero, o nás, nejbližší zápas, poslední výsledky, galerie, obchod
+- `/` – hero (s formou za posledních 5 zápasů), o nás, nejbližší zápas,
+  poslední výsledky, aktuality, galerie, obchod
+- `/aktuality` – novinky z týmu
 - `/tym` – soupiska rozdělená na formace, s vyhledáváním a filtrem
 - `/zapasy` – bilance sezóny, nadcházející i odehrané zápasy
 - `/tabulka` – tabulka soutěže
-- `/bodovani` – kanadské bodování po formacích
+- `/bodovani` – kanadské bodování po formacích a pod ním Síň slávy
+  (klubové rekordy, nejlepší sezóny jednotlivců, tým po sezónách).
+  Stará adresa `/rekordy` se přesměrovává na kotvu `#rekordy`.
 - `/galerie` – mřížka fotek s lightboxem (šipky, Esc)
 - `/obchod` – klubový merch (zatím připravený, bez zboží)
 - `/kontakt` – formulář (otevře poštovního klienta), kontakty, kde hrajeme

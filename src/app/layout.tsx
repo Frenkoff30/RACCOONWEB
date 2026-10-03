@@ -56,18 +56,14 @@ export const metadata: Metadata = {
     url: "./",
     title: team.tagline ? `${team.name} | ${team.tagline}` : team.fullName,
     description: team.claim,
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Logo hokejového týmu Raccoons",
-      },
-    ],
+    /**
+     * Náhledový obrázek se negeneruje tady, ale souborem `opengraph-image.tsx`
+     * – v kořeni pro celý web a ve složkách jednotlivých stránek pro jejich
+     * vlastní verzi. Kdyby se sem `images` vrátilo natvrdo, přebilo by je.
+     */
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og.png"],
   },
   robots: { index: true, follow: true },
 };

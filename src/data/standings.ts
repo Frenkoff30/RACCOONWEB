@@ -112,6 +112,27 @@ export const standingsSeasons: SeasonStandings[] = [
   },
 ];
 
+/* -------------------------------------------------------------------------
+   ARCHIVNÍ UMÍSTĚNÍ
+
+   Sezóny, u kterých kompletní tabulku nemáme a víme jen, kde jsme skončili.
+   Objeví se v Síni slávy v sekci „Tým po sezónách“ – bez bilance a skóre,
+   protože ta čísla prostě nemáme. Jakmile se tabulka někde najde, přepiš to
+   na plnohodnotný záznam ve `standingsSeasons` výš a odsud řádek smaž.
+   ------------------------------------------------------------------------- */
+export type ArchivePlacement = {
+  season: string;
+  league: string;
+  /** Kolikátí jsme skončili. */
+  rank: number;
+  /** Kolik týmů soutěž mělo – nepovinné, ukáže se jako „ze 14“. */
+  teams?: number;
+};
+
+export const archivePlacements: ArchivePlacement[] = [
+  { season: "2023/2024", league: "NHL Hlinsko", rank: 14 },
+];
+
 /** Seznam sezón pro přepínač (nejnovější → nejstarší). */
 export const standingsSeasonKeys = [...standingsSeasons]
   .reverse()

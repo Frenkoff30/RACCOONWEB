@@ -8,10 +8,11 @@ import { IconArrowRight, IconClose, IconMenu } from "./Icons";
 
 const links = [
   { href: "/", label: "Domů" },
+  { href: "/aktuality", label: "Aktuality" },
   { href: "/tym", label: "Soupiska" },
   { href: "/zapasy", label: "Zápasy" },
   { href: "/tabulka", label: "Tabulka" },
-  { href: "/bodovani", label: "Bodování" },
+  { href: "/bodovani", label: "Statistiky" },
   { href: "/galerie", label: "Galerie" },
   { href: "/obchod", label: "Obchod" },
 ];

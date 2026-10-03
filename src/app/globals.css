@@ -114,6 +114,20 @@
   letter-spacing: -0.005em;
 }
 
+/*
+ * Nadpisy mají schválně natěsno řádkování (0.86). Jakmile se ale text
+ * ořezává (`truncate` = overflow hidden), useklo by to háčky a čárky nad
+ * velkými písmeny – z „MIKULÁŠ NĚMEC“ by zbylo „MIKULAS NEMEC“.
+ *
+ * Samotné povolení řádku nestačí: v Antonu sahá „Ů“ 1.25em nad účaří, tedy
+ * výš než ascent fontu (1.2em), takže by se ořízlo i tak. Odsazení navrchu
+ * proto posune horní hranu ořezu nad nejvyšší český diakritický znak.
+ */
+.display.truncate {
+  line-height: 1.15;
+  padding-top: 0.35em;
+}
+
 .cond {
   font-family: var(--font-barlow-condensed), sans-serif;
 }

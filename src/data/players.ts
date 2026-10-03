@@ -42,9 +42,13 @@ export type Player = {
   /** Fotka: ulož do public/images/hraci/ a napiš sem "/images/hraci/soubor.jpg" */
   photo?: string;
   /**
-   * Statistiky po sezónách. Doplň jen sezóny, které hráč odehrál.
-   * Aktuální sezónu (CURRENT_SEASON) nech vynulovanou – naskočí do tabulky
-   * "připravená" a čísla dorovnáš během ročníku.
+   * Hraje v aktuální sezóně? Objeví se díky tomu v soupisce i v bodování,
+   * i když zatím nemá jediný bod. Hosty nech bez tohohle příznaku.
+   */
+  active?: boolean;
+  /**
+   * Statistiky za **minulé** sezóny. Aktuální sezóna se sem nepíše –
+   * ta se počítá sama ze zápisů v `matches.ts`.
    */
   stats?: Partial<Record<SeasonKey, SeasonStat>>;
 };
@@ -54,13 +58,12 @@ function s(games: number, goals: number, assists: number): SeasonStat {
   return { games, goals, assists };
 }
 
-/** Prázdná (vynulovaná) aktuální sezóna – přidává se každému aktivnímu hráči. */
-const EMPTY: SeasonStat = s(0, 0, 0);
-
 /* -------------------------------------------------------------------------
    SOUPISKA
    Doplň u hráčů `position`, případně `role`, `nickname`, `photo`.
-   Statistiky se zapisují po sezónách do `stats`.
+   `active: true` = hraje aktuální sezónu. Body za aktuální sezónu se sem
+   nepíšou, ty se berou ze zápasů v `matches.ts`. V `stats` jsou jen archivní
+   sezóny, které zápas po zápase zapsané nemáme.
    ------------------------------------------------------------------------- */
 export const players: Player[] = [
   {
@@ -69,9 +72,9 @@ export const players: Player[] = [
     lastName: "Hamák",
     position: "Obránce",
     nickname: "Hami",
+    active: true,
     stats: {
       "2025/2026": s(9, 16, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -79,11 +82,11 @@ export const players: Player[] = [
     firstName: "Jan",
     lastName: "Holas",
     position: "Útočník",
+    active: true,
     stats: {
       "2023/2024": s(19, 2, 1),
       "2024/2025": s(13, 3, 3),
       "2025/2026": s(13, 1, 2),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -91,11 +94,11 @@ export const players: Player[] = [
     firstName: "Michal",
     lastName: "Horáček",
     position: "Útočník",
+    active: true,
     stats: {
       "2023/2024": s(20, 7, 4),
       "2024/2025": s(17, 4, 2),
       "2025/2026": s(14, 5, 5),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -103,10 +106,10 @@ export const players: Player[] = [
     firstName: "Vítek",
     lastName: "Myška",
     position: "Brankář",
+    active: true,
     stats: {
       "2024/2025": s(1, 0, 0),
       "2025/2026": s(1, 0, 1),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -115,11 +118,11 @@ export const players: Player[] = [
     lastName: "Benc",
     position: "Útočník",
     nickname: "Bencík",
+    active: true,
     stats: {
       "2023/2024": s(21, 3, 4),
       "2024/2025": s(18, 4, 1),
       "2025/2026": s(13, 5, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -128,11 +131,11 @@ export const players: Player[] = [
     lastName: "Kvapil",
     position: "Obránce",
     nickname: "Kvápa",
+    active: true,
     stats: {
       "2023/2024": s(19, 2, 1),
       "2024/2025": s(11, 4, 0),
       "2025/2026": s(5, 0, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -141,11 +144,11 @@ export const players: Player[] = [
     lastName: "Švanda",
     position: "Útočník",
     nickname: "Švadů",
+    active: true,
     stats: {
       "2023/2024": s(13, 0, 0),
       "2024/2025": s(17, 1, 0),
       "2025/2026": s(9, 3, 2),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -153,11 +156,11 @@ export const players: Player[] = [
     firstName: "David",
     lastName: "Fousek",
     position: "Obránce",
+    active: true,
     stats: {
       "2023/2024": s(21, 0, 1),
       "2024/2025": s(10, 0, 0),
       "2025/2026": s(10, 1, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -166,11 +169,11 @@ export const players: Player[] = [
     lastName: "Zvolánek",
     position: "Obránce",
     nickname: "Zvolda",
+    active: true,
     stats: {
       "2023/2024": s(16, 11, 3),
       "2024/2025": s(11, 11, 5),
       "2025/2026": s(2, 0, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -179,11 +182,11 @@ export const players: Player[] = [
     lastName: "Suchý",
     position: "Útočník",
     nickname: "Smek",
+    active: true,
     stats: {
       "2023/2024": s(16, 0, 3),
       "2024/2025": s(14, 3, 1),
       "2025/2026": s(11, 1, 1),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -192,11 +195,11 @@ export const players: Player[] = [
     lastName: "Remeš",
     position: "Útočník",
     nickname: "Remik",
+    active: true,
     stats: {
       "2023/2024": s(20, 1, 1),
       "2024/2025": s(11, 1, 0),
       "2025/2026": s(12, 1, 1),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -205,11 +208,11 @@ export const players: Player[] = [
     lastName: "Švec",
     position: "Brankář",
     nickname: "Borec",
+    active: true,
     stats: {
       "2023/2024": s(21, 0, 5),
       "2024/2025": s(17, 0, 4),
       "2025/2026": s(10, 0, 1),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -217,10 +220,10 @@ export const players: Player[] = [
     firstName: "Milan",
     lastName: "Tichý",
     position: "Útočník",
+    active: true,
     stats: {
       "2024/2025": s(2, 0, 0),
       "2025/2026": s(4, 1, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -229,11 +232,11 @@ export const players: Player[] = [
     lastName: "Wilder",
     position: "Obránce",
     nickname: "Wildy",
+    active: true,
     stats: {
       "2023/2024": s(12, 2, 6),
       "2024/2025": s(4, 0, 1),
       "2025/2026": s(4, 0, 2),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -242,11 +245,11 @@ export const players: Player[] = [
     lastName: "Horák",
     position: "Útočník",
     nickname: "Hory",
+    active: true,
     stats: {
       "2023/2024": s(20, 2, 1),
       "2024/2025": s(16, 2, 2),
       "2025/2026": s(13, 0, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -254,11 +257,11 @@ export const players: Player[] = [
     firstName: "Leoš",
     lastName: "Vodvárka",
     position: "Obránce",
+    active: true,
     stats: {
       "2023/2024": s(20, 0, 1),
       "2024/2025": s(16, 0, 1),
       "2025/2026": s(6, 0, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -267,11 +270,11 @@ export const players: Player[] = [
     lastName: "Němec",
     position: "Obránce",
     nickname: "Miky",
+    active: true,
     stats: {
       "2023/2024": s(19, 29, 1),
       "2024/2025": s(16, 27, 3),
       "2025/2026": s(10, 18, 2),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -280,11 +283,11 @@ export const players: Player[] = [
     lastName: "Jandík",
     position: "Útočník",
     nickname: "Ládík",
+    active: true,
     stats: {
       "2023/2024": s(12, 1, 2),
       "2024/2025": s(11, 2, 1),
       "2025/2026": s(4, 0, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -304,10 +307,10 @@ export const players: Player[] = [
     lastName: "Sodomka",
     position: "Útočník",
     nickname: "Sody",
+    active: true,
     stats: {
       "2024/2025": s(6, 6, 3),
       "2025/2026": s(4, 0, 3),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -316,11 +319,11 @@ export const players: Player[] = [
     lastName: "Sotona",
     position: "Útočník",
     nickname: "Soty",
+    active: true,
     stats: {
       "2023/2024": s(11, 0, 1),
       "2024/2025": s(14, 5, 1),
       "2025/2026": s(5, 0, 0),
-      "2026/2027": EMPTY,
     },
   },
   {
@@ -328,9 +331,7 @@ export const players: Player[] = [
     firstName: "Matouš",
     lastName: "Borna",
     position: "Útočník",
-    stats: {
-      "2026/2027": EMPTY,
-    },
+    active: true,
   },
 ];
 
@@ -355,42 +356,6 @@ export function playerKey(p: Player) {
   return `${p.number}-${p.lastName}-${p.firstName}`;
 }
 
-/**
- * Statistika hráče pro daný pohled: konkrétní sezóna nebo součet přes všechny.
- * Vrací vždy objekt (i s nulami), aby se s ním dalo počítat.
- */
-export function statFor(p: Player, view: ScoringView): SeasonStat {
-  if (view === TOTAL_KEY) {
-    return SEASONS.reduce<SeasonStat>((acc, key) => {
-      const st = p.stats?.[key];
-      if (!st) return acc;
-      return {
-        games: acc.games + st.games,
-        goals: acc.goals + st.goals,
-        assists: acc.assists + st.assists,
-      };
-    }, s(0, 0, 0));
-  }
-  return p.stats?.[view] ?? s(0, 0, 0);
-}
-
-export function points(stat: SeasonStat) {
-  return stat.goals + stat.assists;
-}
-
-/** Odehrál hráč v daném pohledu aspoň nějaký zápas / má zapsané statistiky? */
-export function playedIn(p: Player, view: ScoringView): boolean {
-  if (view === TOTAL_KEY) {
-    return SEASONS.some((key) => p.stats?.[key] !== undefined);
-  }
-  return p.stats?.[view] !== undefined;
-}
-
-/** Má hráč zapsané statistiky aspoň v jedné sezóně? */
-export function hasAnyStats(p: Player) {
-  return SEASONS.some((key) => p.stats?.[key] !== undefined);
-}
-
 /** Pozice, které jsou reálně vyplněné – podle toho se vykreslí filtry. */
 export function usedPositions(): Position[] {
   return positionOrder.filter((pos) => players.some((p) => p.position === pos));
@@ -402,22 +367,5 @@ export const roster = [...players]
   .sort(
     (a, b) => a.number - b.number || a.lastName.localeCompare(b.lastName, "cs"),
   );
-
-/**
- * Kanadské bodování pro daný pohled (sezóna nebo součet).
- * Vypisuje hráče, kteří v daném pohledu figurují. Volitelně jen jednu formaci.
- */
-export function scoringTable(view: ScoringView, position?: Position) {
-  return players
-    .filter((p) => !position || p.position === position)
-    .filter((p) => playedIn(p, view))
-    .map((p) => ({ player: p, stat: statFor(p, view) }))
-    .sort(
-      (a, b) =>
-        points(b.stat) - points(a.stat) ||
-        b.stat.goals - a.stat.goals ||
-        a.player.lastName.localeCompare(b.player.lastName, "cs"),
-    );
-}
 
 export const rosterSize = roster.length;

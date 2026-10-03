@@ -12,8 +12,17 @@ export type Match = {
   scoreThem?: number;
   /** Rozhodnuto v prodloužení nebo po nájezdech */
   overtime?: boolean;
-  /** Střelci, např. "Švec 2, Němec, Benc" */
-  scorers?: string;
+  /**
+   * Body v zápase: příjmení hráče → [góly, asistence].
+   * Z tohohle se dopočítá kanadské bodování i střelci pod zápasem,
+   * takže se nikam jinam už nic přepisovat nemusí.
+   */
+  scoring?: Record<string, [goals: number, assists: number]>;
+  /**
+   * Kdo nastoupil (příjmení). Hráči ze `scoring` se připočítají sami,
+   * sem tedy stačí dopsat ty, co body nedali.
+   */
+  lineup?: string[];
   /** Poznámka do zápisu */
   note?: string;
 };
@@ -36,9 +45,18 @@ export type Match = {
      venue: "Zimní stadion Hlinsko",
      scoreUs: 4,
      scoreThem: 2,
-     scorers: "Sotona 2, Benc, Švanda",
+     scoring: {
+       Sotona: [2, 0],   // 2 góly, 0 asistencí
+       Benc: [1, 1],
+       Švanda: [1, 0],
+       Švec: [0, 1],
+     },
+     lineup: ["Fousek", "Kvapil"],   // další, kdo nastoupil bez bodu
      note: "Poznámka do zápisu.",
    },
+
+   Příjmení musí sedět na soupisku v `players.ts`. Když se překlepneš,
+   build spadne a rovnou ti napíše, které jméno nezná.
    ------------------------------------------------------------------------- */
 export const matches: Match[] = [
   {
@@ -47,6 +65,18 @@ export const matches: Match[] = [
     opponent: "Wolves Krouna",
     home: true,
     venue: "Zimní stadion Hlinsko",
+    scoreUs: 5,
+    scoreThem: 4,
+    scoring: {
+      Hamák: [1, 2],
+      Němec: [1, 1],
+      Horáček: [1, 1],
+      Benc: [1, 0],
+      Holas: [1, 0],
+      Suchý: [0, 1],
+    },
+    lineup: ["Fousek", "Remeš", "Švec", "Wilder", "Horák", "Vodvárka"],
+    note: "První zápas sezóny. Díky všem, co přišli podpořit.",
   },
   {
     date: "2026-10-11",

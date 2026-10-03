@@ -7,6 +7,7 @@ import SectionHead from "@/components/SectionHead";
 import Button from "@/components/Button";
 import NextMatchCard from "@/components/NextMatchCard";
 import MatchRow, { MONTHS_SHORT } from "@/components/MatchRow";
+import NewsCard from "@/components/NewsCard";
 import SectionDivider from "@/components/SectionDivider";
 import {
   IconArrowRight,
@@ -19,6 +20,7 @@ import {
 import { playedMatches, splitDate, upcomingMatches } from "@/data/matches";
 import { CURRENT_STANDINGS_SEASON } from "@/data/standings";
 import { galleryItems } from "@/data/gallery";
+import { sortedNews } from "@/data/news";
 import { team } from "@/data/team";
 
 export default function Home() {
@@ -26,12 +28,39 @@ export default function Home() {
   const nextUp = upcomingMatches[0];
   const later = upcomingMatches.slice(1, 4);
   const preview = galleryItems.slice(0, 3);
+  const headlines = sortedNews.slice(0, 2);
 
   return (
     <>
       <Hero />
 
       <Ticker items={team.ticker} />
+
+      {/* ---------------------------------------------------------- */}
+      {/* Aktuality                                                   */}
+      {/* ---------------------------------------------------------- */}
+      {headlines.length > 0 && (
+        <section className="wrap py-24 sm:py-32">
+          <SectionHead
+            title={
+              <>
+                Co je <span className="text-pink">nového</span>
+              </>
+            }
+            action={{ href: "/aktuality", label: "Všechny aktuality" }}
+          />
+
+          <ul className="mt-12 grid gap-5 sm:grid-cols-2">
+            {headlines.map((item, i) => (
+              <Reveal as="li" key={`${item.date}-${item.title}`} delay={i * 60}>
+                <NewsCard item={item} />
+              </Reveal>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <SectionDivider from="dark" to="light" />
 
       {/* ---------------------------------------------------------- */}
       {/* O nás  světlá sekce                                         */}

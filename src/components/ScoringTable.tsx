@@ -1,11 +1,10 @@
 import {
   fullName,
   playerKey,
-  points,
-  scoringTable,
   type Position,
   type ScoringView,
 } from "@/data/players";
+import { points, scoringTable } from "@/data/stats";
 
 type Props = {
   /** Který pohled se zobrazuje – konkrétní sezóna nebo součet. */

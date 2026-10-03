@@ -5,10 +5,11 @@ import { rosterSize } from "@/data/players";
 import { IconFacebook, IconInstagram, IconMail } from "./Icons";
 
 const navLinks = [
+  { href: "/aktuality", label: "Aktuality" },
   { href: "/tym", label: "Soupiska" },
   { href: "/zapasy", label: "Zápasy" },
   { href: "/tabulka", label: "Tabulka soutěže" },
-  { href: "/bodovani", label: "Kanadské bodování" },
+  { href: "/bodovani", label: "Bodování a rekordy" },
   { href: "/galerie", label: "Galerie" },
   { href: "/obchod", label: "Obchod" },
   { href: "/kontakt", label: "Kontakt" },

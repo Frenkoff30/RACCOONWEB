@@ -1,5 +1,6 @@
 import Button from "./Button";
 import Logo from "./Logo";
+import FormStrip from "./FormStrip";
 import { BrandBars } from "./SectionDivider";
 import { IconArrowRight, IconInstagram } from "./Icons";
 import { team } from "@/data/team";
@@ -32,6 +33,8 @@ export default function Hero() {
             </h1>
 
             <BrandBars className="mt-10" />
+
+            <FormStrip className="mt-8" />
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Button

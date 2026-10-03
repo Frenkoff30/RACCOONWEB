@@ -4,6 +4,7 @@ import {
   type PlayedMatch,
   type Result,
 } from "@/data/matches";
+import { assistsLine, scorersLine } from "@/data/stats";
 import { IconAway, IconHome } from "./Icons";
 
 export const MONTHS_SHORT = [
@@ -48,6 +49,8 @@ export function ResultChip({ result }: { result: Result }) {
 export default function MatchRow({ match }: { match: PlayedMatch }) {
   const { day, month, year } = splitDate(match.date);
   const result = resultOf(match);
+  const goals = scorersLine(match);
+  const assists = assistsLine(match);
 
   return (
     <article className="card card-hover p-5 sm:p-6">
@@ -95,18 +98,26 @@ export default function MatchRow({ match }: { match: PlayedMatch }) {
         </div>
       </div>
 
-      {(match.scorers || match.note) && (
-        <div className="mt-4 border-t border-line pt-4">
-          {match.scorers && (
+      {(goals || assists || match.note) && (
+        <div className="mt-4 space-y-1.5 border-t border-line pt-4">
+          {goals && (
             <p className="text-[0.9rem] text-chalk">
               <span className="cond mr-2 text-xs font-semibold uppercase tracking-[0.18em] text-pink">
                 Branky
               </span>
-              {match.scorers}
+              {goals}
+            </p>
+          )}
+          {assists && (
+            <p className="text-[0.9rem] text-chalk">
+              <span className="cond mr-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                Asistence
+              </span>
+              {assists}
             </p>
           )}
           {match.note && (
-            <p className="mt-1.5 text-[0.9rem] leading-relaxed text-muted">
+            <p className="pt-0.5 text-[0.9rem] leading-relaxed text-muted">
               {match.note}
             </p>
           )}
